@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IT_Assessment_2.Models;
+﻿using IT_Assessment_2.Models;
+using static IT_Assessment_2.Models.Staff;
 
-namespace IT_Assessment_2.Helpers
+namespace IT_Assignment_2.Helpers
 {
-    public class SessionManager
+
+    public static class SessionManager
     {
+        public static Staff CurrentUser { get; private set; }
+        public static bool IsLoggedIn => CurrentUser != null;
+        public static bool IsAdmin => CurrentUser?.Role == UserRole.Admin;
+        public static bool IsManager => CurrentUser?.Role >= UserRole.Manager;
+        public static bool IsCashier => CurrentUser?.Role == UserRole.Cashier;
 
-        public Staff? => _CurrentUser;
+        public static void Login(Staff user)
+        {
+            CurrentUser = user;
+        }
 
-        public static Staff? _CurrentUser => _CurrentUser;
-
-        public bool IsLoggedIn { get; set; }
-
-        
-
-
+        public static void Logout()
+        {
+            CurrentUser = null;
+        }
     }
 }
