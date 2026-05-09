@@ -1,6 +1,7 @@
 ﻿using IT_Assessment_2.Helpers;
 using IT_Assignment_2.Helpers;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace IT_Assessment_2.Forms
@@ -31,6 +32,7 @@ namespace IT_Assessment_2.Forms
             button9.Click += DigitButton_Click; // "9"
 
             // password switching
+
             button11.Click += button11_Click;
         }
 
@@ -50,30 +52,31 @@ namespace IT_Assessment_2.Forms
 
         private void CheckPin()
         {
-            try
+            // confirm staff.csv exists before reading it
+            if (!File.Exists(Paths.Staff))
             {
-                var matched = CsvHelper.FindByPin(Paths.Staff, enteredPin);
-
-                if (matched != null)
-                {
-                    SessionManager.CurrentUser = matched;
-                    LoginSuccess?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    MessageBox.Show("Incorrect PIN. Try again.",
-                                    "Login Failed",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-                    ResetPin();
-                }
+                MessageBox.Show(
+                    "Staff data file not found:\n" + Paths.Staff,
+                    "Missing Data File",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                ResetPin();
+                return;
             }
-            catch (Exception ex)
+
+            var matched = CsvHelper.FindByPin(Paths.Staff, enteredPin);
+
+            if (matched != null)
             {
-                MessageBox.Show("Could not verify PIN: " + ex.Message,
-                                "Login Error",
+                SessionManager.CurrentUser = matched;
+                LoginSuccess?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                MessageBox.Show("Incorrect PIN. Try again.",
+                                "Login Failed",
                                 MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                                MessageBoxIcon.Warning);
                 ResetPin();
             }
         }
@@ -83,11 +86,11 @@ namespace IT_Assessment_2.Forms
             enteredPin = "";
             pinInput.Text = "";
         }
-
         private void button11_Click(object sender, EventArgs e)
         {
             ResetPin();
             SwitchToPassword?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

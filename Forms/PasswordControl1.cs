@@ -1,13 +1,14 @@
 ﻿using IT_Assessment_2.Helpers;
 using IT_Assignment_2.Helpers;
 using System;
+using System.IO;
 using System.Windows.Forms;
+using IT_Assessment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
 {
     public partial class PasswordControl1 : UserControl
     {
-        // events LoginForm listens to
         public event EventHandler LoginSuccess;
         public event EventHandler SwitchToPin;
 
@@ -17,64 +18,59 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
-            // wire up controls
+
             button1.Click += Button1_Click;
             button2.Click += button2_Click;
         }
 
-
-        // =========================
-        // PASSWORD LOGIN
-        // =========================
         private void Button1_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            try
-            {
-                var matched = CsvHelper.FindByLogin(Paths.Staff, username, password);
-
-                if (matched != null)
-                {
-                    SessionManager.CurrentUser = matched;
-                    LoginSuccess?.Invoke(this, EventArgs.Empty);
-                    return;
-                }
-
-                // failed login
-                attempts--;
-
-                MessageBox.Show(
-                    $"Wrong username or password.\nAttempts left: {attempts}",
-                    "Login Failed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                txtPassword.Clear();
-                txtPassword.Focus();
-
-                // lock out after 3 failed attempts
-                if (attempts <= 0)
-                {
-                    MessageBox.Show(
-                        "Too many failed attempts. Login disabled.",
-                        "Locked",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-
-                    button1.Enabled = false;
-                    txtUsername.Enabled = false;
-                    txtPassword.Enabled = false;
-                }
-            }
-            catch (Exception ex)
+            // confirm staff.csv exists before reading it
+            if (!File.Exists(Paths.Staff))
             {
                 MessageBox.Show(
-                    "Could not verify login: " + ex.Message,
-                    "Login Error",
+                    "Staff data file not found:\n" + Paths.Staff,
+                    "Missing Data File",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return;
+            }
+
+            var matched = CsvHelper.FindByLogin(Paths.Staff, username, password);
+
+            if (matched != null)
+            {
+                SessionManager.CurrentUser = matched;
+                LoginSuccess?.Invoke(this, EventArgs.Empty);
+                return;
+            }
+
+            // failed login
+            attempts--;
+
+            MessageBox.Show(
+                $"Wrong username or password.\nAttempts left: {attempts}",
+                "Login Failed",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+
+            txtPassword.Clear();
+            txtPassword.Focus();
+
+            if (attempts <= 0)
+            {
+                MessageBox.Show(
+                    "Too many failed attempts. Login disabled.",
+                    "Locked",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                button1.Enabled = false;
+                txtUsername.Enabled = false;
+                txtPassword.Enabled = false;
             }
         }
 
@@ -82,5 +78,6 @@ namespace IT_Assessment_2.Forms
         {
             SwitchToPin?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }
