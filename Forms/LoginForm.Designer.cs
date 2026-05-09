@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using AmanePOSHelpers;
+using IT_Assignment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
 {
@@ -34,11 +36,14 @@ namespace IT_Assessment_2.Forms
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlLoginContainer = new System.Windows.Forms.Panel();
+            this.LogoBtn = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.panel1.Controls.Add(this.LogoBtn);
             this.panel1.Location = new System.Drawing.Point(-62, -21);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2190, 129);
@@ -52,6 +57,17 @@ namespace IT_Assessment_2.Forms
             this.pnlLoginContainer.Size = new System.Drawing.Size(648, 743);
             this.pnlLoginContainer.TabIndex = 1;
             // 
+            // LogoBtn
+            // 
+            this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.LogoBtn.Location = new System.Drawing.Point(97, 43);
+            this.LogoBtn.BackColor = AmaneStyling.NavBar;
+            this.LogoBtn.Name = "LogoBtn";
+            this.LogoBtn.Size = new System.Drawing.Size(217, 74);
+            this.LogoBtn.TabIndex = 0;
+            this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
+            this.LogoBtn.UseVisualStyleBackColor = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -61,6 +77,7 @@ namespace IT_Assessment_2.Forms
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.Text = "Log";
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -69,5 +86,6 @@ namespace IT_Assessment_2.Forms
 
         private Panel panel1;
         private Panel pnlLoginContainer;
+        private Button LogoBtn;
     }
 }
