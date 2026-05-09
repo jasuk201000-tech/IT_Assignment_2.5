@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVs\CSVhelper.cs" />
     <Compile Include="Forms\DashboardForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +94,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="CSVs\categories.csv" />
+    <None Include="CSVs\orders.csv" />
+    <None Include="CSVs\order_items.csv" />
+    <None Include="CSVs\products.csv" />
+    <None Include="CSVs\staff.csv" />
+    <None Include="CSVs\variants.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

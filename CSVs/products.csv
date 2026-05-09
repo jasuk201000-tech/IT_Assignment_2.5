@@ -1,0 +1,19 @@
+ProductID,ProductName,CategoryID,Description,BasePrice,Brand,ImagePath,Active,DateAdded
+1,Linen Slip Dress,1,Soft cream linen with adjustable straps,189.00,Amane,/images/linen-slip.jpg,True,2025-09-01
+2,Mauve Bias Midi Dress,1,Bias-cut mauve satin in midi length,229.00,Amane,/images/mauve-midi.jpg,True,2025-09-01
+3,Blush Tulle Mini,1,Layered blush tulle with ribbon waist,199.00,Threetimes,/images/blush-tulle.jpg,True,2025-09-15
+4,Pearl Trim Cardigan,2,Cropped cardigan with pearl button detail,129.00,Amane,/images/pearl-cardi.jpg,True,2025-09-01
+5,Cream Silk Blouse,2,French-cuff silk blouse in cream,159.00,NakedByV,/images/cream-silk.jpg,True,2025-09-10
+6,Rosewood Knit Tee,2,Soft rib knit in rosewood,79.00,Amane,/images/rosewood-tee.jpg,True,2025-09-20
+7,Mauve Satin Camisole,2,Lace-trim camisole in mauve satin,89.00,Amane,/images/mauve-cami.jpg,True,2025-10-01
+8,Tailored Wool Trouser,3,High-waist tailored trouser in greige,169.00,Amane,/images/wool-trouser.jpg,True,2025-09-05
+9,Pleated Mini Skirt,3,Box-pleat mini skirt in cream,119.00,Threetimes,/images/pleated-mini.jpg,True,2025-09-25
+10,Blush Wide-Leg Jean,3,Mid-rise wide leg in washed blush denim,149.00,NakedByV,/images/blush-jean.jpg,True,2025-10-05
+11,Cream Wool Coat,4,Longline wool coat with belt,399.00,Amane,/images/wool-coat.jpg,True,2025-10-10
+12,Mauve Trench,4,Classic trench in mauve cotton blend,289.00,Amane,/images/mauve-trench.jpg,True,2025-10-15
+13,Pearl Drop Earrings,5,Freshwater pearl drops with gold-fill,69.00,Amane,/images/pearl-earrings.jpg,True,2025-09-01
+14,Silk Hair Ribbon,5,Hand-rolled silk ribbon in blush,29.00,Amane,/images/silk-ribbon.jpg,True,2025-09-01
+15,Ballet Flat,6,Cream leather ballet flat with bow,179.00,Amane,/images/ballet-flat.jpg,True,2025-09-20
+16,Mauve Block Heel,6,75mm block heel in mauve suede,239.00,Amane,/images/mauve-heel.jpg,True,2025-10-01
+17,Quilted Crossbody,5,Mini quilted bag in cream leather,199.00,Amane,/images/quilted-bag.jpg,True,2025-10-10
+18,Cashmere Beanie,5,Soft cashmere beanie in dove grey,89.00,NakedByV,/images/cashmere-beanie.jpg,True,2025-10-20
