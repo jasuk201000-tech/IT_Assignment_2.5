@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IT_Assessment_2
+namespace IT_Assessment_2.Forms
 {
-    public partial class Form1 : Form
+    public partial class PINControl1 : UserControl
     {
-        public Form1()
+        public PINControl1()
         {
             InitializeComponent();
         }
