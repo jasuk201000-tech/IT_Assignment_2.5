@@ -19,7 +19,9 @@ namespace IT_Assessment_2.Forms
 
             // wire up controls
             button1.Click += Button1_Click;
+            button2.Click += button2_Click;
         }
+
 
         // =========================
         // PASSWORD LOGIN
@@ -76,10 +78,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // =========================
-        // SWITCH TO PIN SCREEN
-        // =========================
-        private void SwitchToPinLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             SwitchToPin?.Invoke(this, EventArgs.Empty);
         }

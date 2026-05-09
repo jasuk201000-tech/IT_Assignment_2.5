@@ -43,7 +43,7 @@ namespace IT_Assessment_2.Forms
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.button11 = new System.Windows.Forms.Button();
             this.headerPnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -232,23 +232,24 @@ namespace IT_Assessment_2.Forms
             this.button9.Text = "9";
             this.button9.UseVisualStyleBackColor = false;
             // 
-            // linkLabel2
+            // button11
             // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Bold);
-            this.linkLabel2.LinkColor = System.Drawing.Color.RosyBrown;
-            this.linkLabel2.Location = new System.Drawing.Point(182, 679);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(288, 28);
-            this.linkLabel2.TabIndex = 18;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "switch to password log in";
+            this.button11.BackColor = System.Drawing.Color.RosyBrown;
+            this.button11.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button11.Location = new System.Drawing.Point(197, 665);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(252, 60);
+            this.button11.TabIndex = 15;
+            this.button11.Text = "Password mode";
+            this.button11.UseVisualStyleBackColor = false;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // PINControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.button11);
             this.Controls.Add(this.headerPnl);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -263,7 +264,6 @@ namespace IT_Assessment_2.Forms
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button9);
-            this.Controls.Add(this.linkLabel2);
             this.Name = "PINControl1";
             this.Size = new System.Drawing.Size(648, 743);
             this.headerPnl.ResumeLayout(false);
@@ -293,8 +293,7 @@ namespace IT_Assessment_2.Forms
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-
-        private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.MaskedTextBox pinInput;
+        private System.Windows.Forms.Button button11;
     }
 }
