@@ -19,5 +19,12 @@ namespace IT_Assessment_2
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
         }
+     
+
+     private static void DashboardForm1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();   
+        }
     }
 }
+    

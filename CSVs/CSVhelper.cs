@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace IT_Assignment_2.Helpers
+namespace IT_Assessment_2.Helpers
 {
     
     public static class CsvHelper
@@ -24,7 +24,7 @@ namespace IT_Assignment_2.Helpers
             return rows;
         }
 
-        // ---- staff lookups (used by login screens) ----------------------------
+        // staff lookups 
 
         public class Staff
         {

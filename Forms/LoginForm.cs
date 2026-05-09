@@ -1,64 +1,62 @@
-﻿using IT_Assessment_2.Forms;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using IT_Assessment_2.Forms;
+using AmanePOSHelpers;
 
-public partial class LoginForm : Form
+namespace IT_Assessment_2.Forms
 {
-    private PasswordControl1 passwordScreen;
-    private PINControl1 pinScreen;
-    private DashboardForm1 dashboardScreen;
-
-    public LoginForm()
+    public partial class LoginForm : Form
     {
-        InitializeComponent();
+        private PasswordControl1 passwordScreen;
+        private PINControl1 pinScreen;
 
-        // create screens
-        passwordScreen = new PasswordControl1();
-        pinScreen = new PINControl1();
-        dashboardScreen = new DashboardForm1();   // <-- was missing
+        public LoginForm()
+        {
+            InitializeComponent();
 
-        // PASSWORD SCREEN EVENTS
-        passwordScreen.LoginSuccess += LoginScreen_LoginSuccess;
-        passwordScreen.SwitchToPIN += PasswordScreen_SwitchToPin;
+            // create login screens (UserControls only — dashboard is separate)
+            passwordScreen = new PasswordControl1();
+            pinScreen = new PINControl1();
 
-        // PIN SCREEN EVENTS
-        pinScreen.LoginSuccess += LoginScreen_LoginSuccess;             // reuse same handler
-        pinScreen.SwitchToPassword += PinScreen_SwitchToPassword;
+            // PASSWORD SCREEN EVENTS
+            passwordScreen.LoginSuccess += LoginScreen_LoginSuccess;
+            passwordScreen.SwitchToPin += PasswordScreen_SwitchToPin;
 
-        // show default screen
-        ShowScreen(passwordScreen);
-    }
+            // PIN SCREEN EVENTS
+            pinScreen.LoginSuccess += LoginScreen_LoginSuccess;
+            pinScreen.SwitchToPassword += PinScreen_SwitchToPassword;
 
-    // open dashboard (used by both password and PIN screens)
-    private void LoginScreen_LoginSuccess(object sender, EventArgs e)
-    {
-        ShowScreen(dashboardScreen);
-    }
+            // show default screen
+            ShowScreen(passwordScreen);
+        }
 
-    private void ShowScreen(DashboardForm1 dashboardScreen)
-    {
-        throw new NotImplementedException();
-    }
+        // login success — open dashboard, hide this form
+        private void LoginScreen_LoginSuccess(object sender, EventArgs e)
+        {
+            var dashboard = new DashboardForm1();
+            dashboard.FormClosed += (s, args) => Application.Exit();
+            dashboard.Show();
+            this.Hide();
+        }
 
-    // open pin screen
-    public void PasswordScreen_SwitchToPIN(object sender, EventArgs e)
-    {
-        ShowScreen(pinScreen);
-    }
+        // switch to pin
+        private void PasswordScreen_SwitchToPin(object sender, EventArgs e)
+        {
+            ShowScreen(pinScreen);
+        }
 
-    // open password screen
-    public void PinScreen_SwitchToPassword(object sender, EventArgs e)
-    {
-        ShowScreen(passwordScreen);
-    }
+        // switch to password
+        private void PinScreen_SwitchToPassword(object sender, EventArgs e)
+        {
+            ShowScreen(passwordScreen);
+        }
 
-    // screen switching
-    private void ShowScreen(UserControl screen)
-    {
-        pnlLoginContainer.Controls.Clear();
-
-        screen.Dock = DockStyle.Fill;
-
-        pnlLoginContainer.Controls.Add(screen);
+        // screen switching between user controls
+        private void ShowScreen(UserControl screen)
+        {
+            pnlLoginContainer.Controls.Clear();
+            screen.Dock = DockStyle.Fill;
+            pnlLoginContainer.Controls.Add(screen);
+        }
     }
 }

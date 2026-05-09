@@ -6,7 +6,7 @@ namespace IT_Assignment_2.Helpers
 
     public static class SessionManager
     {
-        public static Staff CurrentUser { get; private set; }
+        public static Staff CurrentUser { get; set; }
         public static bool IsLoggedIn => CurrentUser != null;
         public static bool IsAdmin => CurrentUser?.Role == UserRole.Admin;
         public static bool IsManager => CurrentUser?.Role >= UserRole.Manager;

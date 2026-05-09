@@ -1,81 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using IT_Assessment_2.Helpers;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace IT_Assessment_2.Forms
 {
     public partial class PasswordControl1 : UserControl
     {
-        
-
-        // implement CSV connection
+        // events LoginForm listens to
+        public event EventHandler LoginSuccess;
+        public event EventHandler SwitchToPin;
 
         private int attempts = 3;
 
-        
-
-        public event EventHandler LoginSuccess;
-
-        // constructor
         public PasswordControl1()
         {
             InitializeComponent();
 
-            // connect button click
-            button1.Click += button1_Click;
+            // wire up controls
+            button1.Click += Button1_Click;
         }
 
-        
-
-        private void button1_Click(object sender, EventArgs e)
+        // =========================
+        // PASSWORD LOGIN
+        // =========================
+        private void Button1_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            // check if username exists
-            if (users.ContainsKey(username))
+            try
             {
-                // check password
-                if (users[username] == password)
+                var matched = CsvHelper.FindByLogin(Paths.Staff, username, password);
+
+                if (matched != null)
                 {
-                    MessageBox.Show(
-                        "Login successful!",
-                        "Success",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    // open next screen
+                    SessionManager.CurrentUser = matched;
                     LoginSuccess?.Invoke(this, EventArgs.Empty);
-
                     return;
                 }
+
+                // failed login
+                attempts--;
+
+                MessageBox.Show(
+                    $"Wrong username or password.\nAttempts left: {attempts}",
+                    "Login Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                txtPassword.Clear();
+                txtPassword.Focus();
+
+                // lock out after 3 failed attempts
+                if (attempts <= 0)
+                {
+                    MessageBox.Show(
+                        "Too many failed attempts. Login disabled.",
+                        "Locked",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    button1.Enabled = false;
+                    txtUsername.Enabled = false;
+                    txtPassword.Enabled = false;
+                }
             }
-
-            // failed login
-            attempts--;
-
-            MessageBox.Show(
-                $"Wrong login.\nAttempts left: {attempts}",
-                "Login Failed",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Warning);
-
-            // lock out
-            if (attempts <= 0)
+            catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Too many failed attempts.",
-                    "Locked",
+                    "Could not verify login: " + ex.Message,
+                    "Login Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-
-                button1.Enabled = false;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        // =========================
+        // SWITCH TO PIN SCREEN
+        // =========================
+        private void SwitchToPinLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ShowScreen()
+            SwitchToPin?.Invoke(this, EventArgs.Empty);
         }
     }
 }

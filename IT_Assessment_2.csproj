@@ -72,6 +72,7 @@
       <DependentUpon>PINControl1.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AmaneStyling.cs" />
+    <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\SessionManager.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Program.cs" />

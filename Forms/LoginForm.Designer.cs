@@ -85,7 +85,7 @@ namespace IT_Assessment_2.Forms
         #endregion
 
         private Panel panel1;
-        public Panel pnlLoginContainer;
+        private Panel pnlLoginContainer;   
         private Button LogoBtn;
     }
 }

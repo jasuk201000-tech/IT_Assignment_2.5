@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AmanePOSHelpers;
 
 namespace IT_Assessment_2.Forms
 {

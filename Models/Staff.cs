@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IT_Assessment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,5 +43,9 @@ namespace IT_Assessment_2.Models
 
         public DateTime LastActive { get; set; } = DateTime.Now;
 
+        public static implicit operator Staff(CsvHelper.Staff v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
