@@ -60,6 +60,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -121,6 +126,11 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.panel3.Controls.Add(this.button9);
+            this.panel3.Controls.Add(this.button8);
+            this.panel3.Controls.Add(this.button7);
+            this.panel3.Controls.Add(this.button6);
+            this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.LogoBtn);
             this.panel3.Location = new System.Drawing.Point(-10, -7);
             this.panel3.Name = "panel3";
@@ -360,6 +370,61 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Quick Navigation";
             // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button5.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.button5.Location = new System.Drawing.Point(937, 45);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(185, 41);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "dashboard";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button6.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.button6.Location = new System.Drawing.Point(1142, 45);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(185, 41);
+            this.button6.TabIndex = 8;
+            this.button6.Text = "inventory";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button7.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.button7.Location = new System.Drawing.Point(1345, 45);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(185, 41);
+            this.button7.TabIndex = 9;
+            this.button7.Text = "orders";
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button8.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.button8.Location = new System.Drawing.Point(1547, 45);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(185, 41);
+            this.button8.TabIndex = 10;
+            this.button8.Text = "transactions";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button9.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.button9.Location = new System.Drawing.Point(1749, 45);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(185, 41);
+            this.button9.TabIndex = 11;
+            this.button9.Text = "reports";
+            this.button9.UseVisualStyleBackColor = false;
+            // 
             // DashboardForm1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -436,5 +501,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
     }
 }
