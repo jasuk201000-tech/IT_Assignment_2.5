@@ -74,9 +74,14 @@
     <Compile Include="Helpers\AmaneStyling.cs" />
     <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\SessionManager.cs" />
+    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\DashboardForm1.resx">
+      <DependentUpon>DashboardForm1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
