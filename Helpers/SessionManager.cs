@@ -1,18 +1,17 @@
-﻿using IT_Assessment_2.Models;
-using static IT_Assessment_2.Models.Staff;
+﻿using IT_Assessment_2.CSVs;
 
 namespace IT_Assignment_2.Helpers
 {
-
     public static class SessionManager
     {
-        public static Staff CurrentUser { get; set; }
-        public static bool IsLoggedIn => CurrentUser != null;
-        public static bool IsAdmin => CurrentUser?.Role == UserRole.Admin;
-        public static bool IsManager => CurrentUser?.Role >= UserRole.Manager;
-        public static bool IsCashier => CurrentUser?.Role == UserRole.Cashier;
+        public static CsvHelper.Staff CurrentUser { get; set; }
 
-        public static void Login(Staff user)
+        public static bool IsLoggedIn => CurrentUser != null;
+        public static bool IsAdmin => CurrentUser?.Role == "Admin";
+        public static bool IsManager => CurrentUser?.Role == "Manager" || CurrentUser?.Role == "Admin";
+        public static bool IsCashier => CurrentUser?.Role == "Cashier";
+
+        public static void Login(CsvHelper.Staff user)
         {
             CurrentUser = user;
         }

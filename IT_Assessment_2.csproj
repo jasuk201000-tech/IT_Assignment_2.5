@@ -74,11 +74,12 @@
     <Compile Include="Helpers\AmaneStyling.cs" />
     <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\SessionManager.cs" />
-    <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\OrderItems.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SettingServices.cs" />
     <EmbeddedResource Include="Forms\DashboardForm1.resx">
       <DependentUpon>DashboardForm1.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,7 +105,7 @@
     <None Include="CSVs\orders.csv" />
     <None Include="CSVs\order_items.csv" />
     <None Include="CSVs\products.csv" />
-    <None Include="CSVs\staff.csv" />
+    <None Include="CSVs\Staff.csv" />
     <None Include="CSVs\variants.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

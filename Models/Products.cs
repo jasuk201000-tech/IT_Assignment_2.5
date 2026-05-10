@@ -12,7 +12,7 @@ namespace IT_Assessment_2.Models
        
         // to implement: ProductID,ProductName,CategoryID,Description,BasePrice,Brand,ImagePath,Active,DateAdded
 
-        // enumerates categories for easier accessibility
+        // enumerated categories for easier accessibility
         public enum CategoryID
         {
             Dresses = 1,
@@ -22,7 +22,7 @@ namespace IT_Assessment_2.Models
             Accessories = 5,
             Footwear = 6
         }
-        public int ProductID { get; set; }
+        public Guid ProductID { get; set; }
         public string ProductName { get; set; }
         public string Description { get; set; } = string.Empty;
 
@@ -33,5 +33,23 @@ namespace IT_Assessment_2.Models
         public bool Active { get; set; } = true;
 
         public DateTime DateAdded { get; set; } = DateTime.Today;
+    }
+
+    public class Variants
+    {
+        // to implement: VariantID,ProductID,Size,Color,SKU,StockLevel,ReorderLevel
+
+        public Guid VariantID { get; set; }
+        public Guid ProductID { get; set; }
+
+        public string Size { get; set; }
+
+        public string Color { get;set; }
+
+        public string SKU { get; set; }
+
+        public int StockLevel { get; set; } = 0;
+
+        public int ReorderLevel { get; set; } = 0;
     }
 }

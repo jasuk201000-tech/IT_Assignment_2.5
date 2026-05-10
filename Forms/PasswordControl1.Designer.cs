@@ -1,6 +1,7 @@
 ﻿using System;
 using AmanePOSHelpers;
-using IT_Assignment_2.Helpers;
+using IT_Assessment_2.CSVs;
+using AmanePOSHelpers;
 
 namespace IT_Assessment_2.Forms
 {

@@ -1,9 +1,10 @@
-﻿using IT_Assessment_2.Helpers;
+﻿using IT_Assessment_2.CSVs;
 using IT_Assignment_2.Helpers;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using IT_Assessment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
 {
@@ -12,15 +13,37 @@ namespace IT_Assessment_2.Forms
         public event EventHandler LoginSuccess;
         public event EventHandler SwitchToPin;
 
+        // load the staff list once when the control is constructed
+        private List<CsvHelper.Staff> _allStaff;
+        private string _csvPath => Paths.Staff;
+
         private int attempts = 3;
 
         public PasswordControl1()
         {
             InitializeComponent();
 
+            LoadStaffData();
 
             button1.Click += Button1_Click;
             button2.Click += button2_Click;
+        }
+
+        // load all staff once into memory
+        private void LoadStaffData()
+        {
+            if (!File.Exists(_csvPath))
+            {
+                MessageBox.Show(
+                    "Staff data file not found:\n" + _csvPath,
+                    "Missing Data File",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                _allStaff = new List<CsvHelper.Staff>();   // empty so lookup just fails cleanly
+                return;
+            }
+
+            _allStaff = CsvHelper.LoadStaff(_csvPath);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -28,18 +51,11 @@ namespace IT_Assessment_2.Forms
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
-            // confirm staff.csv exists before reading it
-            if (!File.Exists(Paths.Staff))
-            {
-                MessageBox.Show(
-                    "Staff data file not found:\n" + Paths.Staff,
-                    "Missing Data File",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                return;
-            }
-
-            var matched = CsvHelper.FindByLogin(Paths.Staff, username, password);
+            // search the in-memory list (instead of re-reading the CSV)
+            var matched = _allStaff.FirstOrDefault(s =>
+                s.Active &&
+                s.Username == username &&
+                s.Password == password);
 
             if (matched != null)
             {

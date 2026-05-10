@@ -1,22 +1,58 @@
-﻿using IT_Assessment_2.Helpers;
-using IT_Assignment_2.Helpers;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
 {
     public partial class PINControl1 : UserControl
     {
+        private void LoadStaffData()
+        {
+            string startup = Application.StartupPath;
+            string lookingFor = _csvPath;
+
+            // list everything in the startup folder so we can see what's there
+            string contents = "";
+            try
+            {
+                contents = "Folders in startup path:\n" +
+                           string.Join("\n", Directory.GetDirectories(startup)) +
+                           "\n\nFiles in startup path:\n" +
+                           string.Join("\n", Directory.GetFiles(startup));
+            }
+            catch (Exception ex)
+            {
+                contents = "Could not list folder: " + ex.Message;
+            }
+
+            MessageBox.Show(
+                "Startup path:\n" + startup + "\n\n" +
+                "Looking for:\n" + lookingFor + "\n\n" +
+                "Exists: " + File.Exists(lookingFor) + "\n\n" +
+                contents,
+                "Diagnostic — copy this");
+        }
+
+    // ...rest of the method as before
         public event EventHandler LoginSuccess;
         public event EventHandler SwitchToPassword;
 
         private const int PIN_LENGTH = 4;
         private string enteredPin = "";
 
+        // load the staff list once when the control is constructed
+        private List<CsvHelper.Staff> _allStaff;
+        private string _csvPath => Paths.Staff;
+
         public PINControl1()
         {
             InitializeComponent();
+
+            LoadStaffData();
 
             pinInput.Text = "";
 
@@ -31,10 +67,11 @@ namespace IT_Assessment_2.Forms
             button8.Click += DigitButton_Click; // "8"
             button9.Click += DigitButton_Click; // "9"
 
-            // password switching
-
-            button11.Click += button11_Click;
+            // switch to password screen
+            button11.Click += Button11_Click;
         }
+
+    
 
         private void DigitButton_Click(object sender, EventArgs e)
         {
@@ -52,19 +89,8 @@ namespace IT_Assessment_2.Forms
 
         private void CheckPin()
         {
-            // confirm staff.csv exists before reading it
-            if (!File.Exists(Paths.Staff))
-            {
-                MessageBox.Show(
-                    "Staff data file not found:\n" + Paths.Staff,
-                    "Missing Data File",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                ResetPin();
-                return;
-            }
-
-            var matched = CsvHelper.FindByPin(Paths.Staff, enteredPin);
+            // search the in-memory list
+            var matched = _allStaff.FirstOrDefault(s => s.Active && s.PIN == enteredPin);
 
             if (matched != null)
             {
@@ -86,11 +112,12 @@ namespace IT_Assessment_2.Forms
             enteredPin = "";
             pinInput.Text = "";
         }
-        private void button11_Click(object sender, EventArgs e)
+
+        // switch to password screen
+        private void Button11_Click(object sender, EventArgs e)
         {
             ResetPin();
             SwitchToPassword?.Invoke(this, EventArgs.Empty);
         }
-
     }
 }

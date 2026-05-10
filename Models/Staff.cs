@@ -1,4 +1,4 @@
-﻿using IT_Assessment_2.Helpers;
+﻿using IT_Assessment_2.CSVs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace IT_Assessment_2.Models
 
         // properties of the staff class
 
-        public int StaffId { get; set; }
+        public Guid StaffId { get; set; }
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; } = string.Empty;

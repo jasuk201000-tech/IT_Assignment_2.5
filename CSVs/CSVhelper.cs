@@ -4,7 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace IT_Assessment_2.Helpers
+namespace IT_Assessment_2.CSVs
 {
     
     public static class CsvHelper

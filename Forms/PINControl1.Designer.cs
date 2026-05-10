@@ -242,7 +242,7 @@ namespace IT_Assessment_2.Forms
             this.button11.TabIndex = 15;
             this.button11.Text = "Password mode";
             this.button11.UseVisualStyleBackColor = false;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.button11.Click += new System.EventHandler(this.Button11_Click);
             // 
             // PINControl1
             // 
