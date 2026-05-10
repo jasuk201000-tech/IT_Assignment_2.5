@@ -1,8 +1,8 @@
 StaffID,FirstName,LastName,Username,Password,PIN,Role,Email,Active,DateCreated,CustomersServed
-1,Amane,Tanaka,amane,Admin@2026,1234,Admin,amane@amaneboutique.com.au,True,2024-03-15,0
-2,Sophie,Chen,schen,Manager#01,5678,Manager,sophie@amaneboutique.com.au,True,2024-04-20,2
-3,Isla,Kim,ikim,Manager#02,9999,Manager,isla@amaneboutique.com.au,True,2025-08-12,1
-4,Mia,Williams,mwilliams,Cashier01!,1111,Cashier,mia@amaneboutique.com.au,True,2025-01-10,12
-5,Lily,Park,lpark,Cashier02!,2222,Cashier,lily@amaneboutique.com.au,True,2025-02-14,9
-6,Ava,Nguyen,anguyen,Cashier03!,3333,Cashier,ava@amaneboutique.com.au,True,2025-06-01,11
-7,Ruby,Thompson,rthompson,Cashier04!,4444,Cashier,ruby@amaneboutique.com.au,False,2024-11-05,0
+1,Amane,Tanaka,amane,Admin@2026,1234,1,amane@amaneboutique.com.au,True,2024-03-15,0
+2,Sophie,Chen,schen,Manager#01,5678,2,sophie@amaneboutique.com.au,True,2024-04-20,2
+3,Isla,Kim,ikim,Manager#02,9999,2,isla@amaneboutique.com.au,True,2025-08-12,1
+4,Mia,Williams,mwilliams,Cashier01!,1111,3,mia@amaneboutique.com.au,True,2025-01-10,12
+5,Lily,Park,lpark,Cashier02!,2222,3,lily@amaneboutique.com.au,True,2025-02-14,9
+6,Ava,Nguyen,anguyen,Cashier03!,3333,3,ava@amaneboutique.com.au,True,2025-06-01,11
+7,Ruby,Thompson,rthompson,Cashier04!,4444,3,ruby@amaneboutique.com.au,False,2024-11-05,0

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using IT_Assessment_2.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.CSVs
 {
@@ -28,13 +30,13 @@ namespace IT_Assessment_2.CSVs
 
         public class Staff
         {
-            public int StaffID;
+            public Guid StaffID;
             public string FirstName;
             public string LastName;
             public string Username;
             public string Password;
             public string PIN;
-            public string Role;
+            public UserRole Role;          // changed from string
             public string Email;
             public bool Active;
             public DateTime DateCreated;
@@ -56,7 +58,7 @@ namespace IT_Assessment_2.CSVs
                     Username = f[3],
                     Password = f[4],
                     PIN = f[5],
-                    Role = f[6],
+                    Role = (UserRole)int.Parse(f[6]),   // cast int -> enum
                     Email = f[7],
                     Active = bool.Parse(f[8]),
                     DateCreated = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
@@ -95,6 +97,41 @@ namespace IT_Assessment_2.CSVs
                 }
             }
             File.WriteAllLines(path, lines);
+        }
+
+        public class Product
+        {
+            // ProductID,ProductName,CategoryID,Description,BasePrice,Brand,ImagePath,Active,DateAdded
+            public Guid ProductID;
+            public string ProductName;
+            public Guid CategoryID;
+            public string Description;
+            public decimal BasePrice;
+            public bool Active;
+            public DateTime DateAdded;
+        }
+
+        public static List<Products> LoadProducts(string path)
+        {
+            var list = new List<Products>();
+            foreach (var f in ReadRows(path))
+            {
+                list.Add(new Products
+                {
+                    ProductID = int.Parse(f[0]),
+                    ProductName = f[1],
+                    LastName = f[2],
+                    Username = f[3],
+                    Password = f[4],
+                    PIN = f[5],
+                    Role = (UserRole)int.Parse(f[6]),   // cast int -> enum
+                    Email = f[7],
+                    Active = bool.Parse(f[8]),
+                    DateCreated = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
+                    CustomersServed = int.Parse(f[10]),
+                });
+            }
+            return list;
         }
     }
 }

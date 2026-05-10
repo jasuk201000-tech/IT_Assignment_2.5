@@ -33,6 +33,16 @@ namespace IT_Assessment_2.Models
         public bool Active { get; set; } = true;
 
         public DateTime DateAdded { get; set; } = DateTime.Today;
+
+        public List<ProductVariant> Variants { get; set; } = new();
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public int TotalStock => Variants.Sum(v => v.StockQty); // implementing low stock threshold for KPI
+        public decimal MinPrice => Variants.Count > 0
+                                        ? Variants.Min(v => v.Price)
+                                        : 0m;
+        public bool HasLowStock => Variants.Any(v => v.IsLowStock);
+        public bool HasOutOfStock => Variants.Any(v => v.IsOutOfStock);
     }
 
     public class Variants
