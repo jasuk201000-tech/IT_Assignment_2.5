@@ -10,34 +10,6 @@ namespace IT_Assessment_2.Forms
 {
     public partial class PINControl1 : UserControl
     {
-        private void LoadStaffData()
-        {
-            string startup = Application.StartupPath;
-            string lookingFor = _csvPath;
-
-            // list everything in the startup folder so we can see what's there
-            string contents = "";
-            try
-            {
-                contents = "Folders in startup path:\n" +
-                           string.Join("\n", Directory.GetDirectories(startup)) +
-                           "\n\nFiles in startup path:\n" +
-                           string.Join("\n", Directory.GetFiles(startup));
-            }
-            catch (Exception ex)
-            {
-                contents = "Could not list folder: " + ex.Message;
-            }
-
-            MessageBox.Show(
-                "Startup path:\n" + startup + "\n\n" +
-                "Looking for:\n" + lookingFor + "\n\n" +
-                "Exists: " + File.Exists(lookingFor) + "\n\n" +
-                contents,
-                "Diagnostic — copy this");
-        }
-
-    // ...rest of the method as before
         public event EventHandler LoginSuccess;
         public event EventHandler SwitchToPassword;
 
@@ -71,7 +43,23 @@ namespace IT_Assessment_2.Forms
             button11.Click += Button11_Click;
         }
 
-    
+        private void LoadStaffData()
+        {
+            // safety check — show clear message if file isn't where expected
+            if (!File.Exists(_csvPath))
+            {
+                MessageBox.Show(
+                    "Staff data file not found:\n" + _csvPath,
+                    "Missing Data File",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                _allStaff = new List<CsvHelper.Staff>();   // empty so .FirstOrDefault() doesn't crash
+                return;
+            }
+
+            // actually load the staff list — this is what was missing
+            _allStaff = CsvHelper.LoadStaff(_csvPath);
+        }
 
         private void DigitButton_Click(object sender, EventArgs e)
         {
