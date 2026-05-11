@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -101,24 +107,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-   <None Include="CSVs\categories.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
-<None Include="CSVs\orders.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
-<None Include="CSVs\order_items.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
-<None Include="CSVs\products.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
-<None Include="CSVs\staff.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
-<None Include="CSVs\variants.csv">
-  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-</None>
+    <None Include="CSVs\categories.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CSVs\orders.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CSVs\order_items.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CSVs\products.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CSVs\staff.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CSVs\variants.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

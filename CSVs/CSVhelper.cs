@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.CSVs
 {
-    
+
     public static class CsvHelper
     {
         // skips header row
@@ -99,66 +100,76 @@ namespace IT_Assessment_2.CSVs
             File.WriteAllLines(path, lines);
         }
 
-        public class Product
+        // order
+        public class Order
         {
-            // ProductID,ProductName,CategoryID,Description,BasePrice,Brand,ImagePath,Active,DateAdded
-            public Guid ProductID;
-            public string ProductName;
-            public Guid CategoryID;
-            public string Description;
-            public decimal BasePrice;
-            public bool Active;
-            public DateTime DateAdded;
+            public int OrderID;
+            public DateTime OrderDate;
+            public int StaffID;
+            public string CustomerName;
+            public decimal Subtotal;
+            public string DiscountCode;
+            public decimal DiscountAmount;
+            public decimal TaxAmount;
+            public decimal Total;
+            public string PaymentMethod;
+            public string Status;
         }
 
-        public static List<Products> LoadProducts(string path)
+        public static List<Order> LoadOrders(string path)
         {
-            var list = new List<Products>();
+            var list = new List<Order>();
             foreach (var f in ReadRows(path))
             {
-                list.Add(new Products
+                list.Add(new Order
                 {
-                    ProductID = Guid.Parse(f[0]),
-                    ProductName = f[1],
-                    CategoryID = int.Parse(f[2]),
-                    Description = f[3],
-                    BasePrice = f[4],
-                    Active = f[5],
-                    DateAdded = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
+                    OrderID = int.Parse(f[0]),
+                    OrderDate = DateTime.Parse(f[1], CultureInfo.InvariantCulture),
+                    StaffID = int.Parse(f[2]),
+                    CustomerName = f[3],
+                    Subtotal = decimal.Parse(f[4], CultureInfo.InvariantCulture),
+                    DiscountCode = f[5],
+                    DiscountAmount = decimal.Parse(f[6], CultureInfo.InvariantCulture),
+                    TaxAmount = decimal.Parse(f[7], CultureInfo.InvariantCulture),
+                    Total = decimal.Parse(f[8], CultureInfo.InvariantCulture),
+                    PaymentMethod = f[9],
+                    Status = f[10],
                 });
             }
             return list;
         }
 
-        public class Variants
+        // variant
+        public class Variant
         {
-            //VariantID,ProductID,Size,Color,SKU,StockLevel,ReorderLevel
-            public Guid VariantID;
-            public Guid ProductID;
+            public int VariantID;
+            public int ProductID;
             public string Size;
             public string Color;
             public string SKU;
             public int StockLevel;
             public int ReorderLevel;
 
+            public bool IsLowStock => StockLevel <= ReorderLevel;
         }
 
-        public static List<Variants> LoadVariants(string path)
+        public static List<Variant> LoadVariants(string path)
         {
-            var list = new List<Variants>();
+            var list = new List<Variant>();
             foreach (var f in ReadRows(path))
-                list.Add(new Products
+            {
+                list.Add(new Variant
                 {
-                    VariantID = Guid.Parse(f[0]),
-                    ProductID = Guid.Parse(f[1]),
+                    VariantID = int.Parse(f[0]),
+                    ProductID = int.Parse(f[1]),
                     Size = f[2],
                     Color = f[3],
                     SKU = f[4],
-                    StockLevel = f[5],
-                    ReorderLevel = f[6]
-                }
-        
-        
+                    StockLevel = int.Parse(f[5]),
+                    ReorderLevel = int.Parse(f[6]),
+                });
+            }
+            return list;
         }
     }
 }

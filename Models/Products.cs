@@ -34,7 +34,7 @@ namespace IT_Assessment_2.Models
 
         public DateTime DateAdded { get; set; } = DateTime.Today;
 
-        public List<ProductVariant> Variants { get; set; } = new();
+        public List<Variant> Variants { get; set; } = new();
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public int TotalStock => Variants.Sum(v => v.StockQty); // implementing low stock threshold for KPI
