@@ -223,9 +223,9 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(975, 104);
+            this.pictureBox4.Location = new System.Drawing.Point(982, 105);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(225, 54);
+            this.pictureBox4.Size = new System.Drawing.Size(147, 50);
             this.pictureBox4.TabIndex = 6;
             this.pictureBox4.TabStop = false;
             // 
@@ -240,7 +240,7 @@
             this.welcomeLbl.AutoSize = true;
             this.welcomeLbl.Font = new System.Drawing.Font("Cambria", 14F, System.Drawing.FontStyle.Bold);
             this.welcomeLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.welcomeLbl.Location = new System.Drawing.Point(828, 181);
+            this.welcomeLbl.Location = new System.Drawing.Point(817, 175);
             this.welcomeLbl.Name = "welcomeLbl";
             this.welcomeLbl.Size = new System.Drawing.Size(502, 44);
             this.welcomeLbl.TabIndex = 8;
