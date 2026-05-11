@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Permissions;
 using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.CSVs
 {
-
     public static class CsvHelper
     {
         // skips header row
@@ -18,7 +16,6 @@ namespace IT_Assessment_2.CSVs
             var rows = new List<string[]>();
             string[] lines = File.ReadAllLines(path);
 
-            // skip header (index 0)
             for (int i = 1; i < lines.Length; i++)
             {
                 if (string.IsNullOrWhiteSpace(lines[i])) continue;
@@ -27,17 +24,16 @@ namespace IT_Assessment_2.CSVs
             return rows;
         }
 
-        // staff lookups 
-
+        // staff class
         public class Staff
         {
-            public Guid StaffID;
+            public int StaffID;             // was Guid — now int
             public string FirstName;
             public string LastName;
             public string Username;
             public string Password;
             public string PIN;
-            public UserRole Role;          // changed from string
+            public UserRole Role;
             public string Email;
             public bool Active;
             public DateTime DateCreated;
@@ -53,13 +49,13 @@ namespace IT_Assessment_2.CSVs
             {
                 list.Add(new Staff
                 {
-                    StaffID = Guid.Parse(f[0]),
+                    StaffID = int.Parse(f[0]),
                     FirstName = f[1],
                     LastName = f[2],
                     Username = f[3],
                     Password = f[4],
                     PIN = f[5],
-                    Role = (UserRole)int.Parse(f[6]),   // cast int -> enum
+                    Role = (UserRole)int.Parse(f[6]),
                     Email = f[7],
                     Active = bool.Parse(f[8]),
                     DateCreated = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
@@ -69,20 +65,17 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
-        // find by pin
         public static Staff FindByPin(string path, string pin)
         {
             return LoadStaff(path).FirstOrDefault(s => s.Active && s.PIN == pin);
         }
 
-        // find by log in
         public static Staff FindByLogin(string path, string username, string password)
         {
             return LoadStaff(path).FirstOrDefault(s =>
                 s.Active && s.Username == username && s.Password == password);
         }
 
-        // adds another customer to customer served panel
         public static void IncrementCustomersServed(string path, int staffId)
         {
             string[] lines = File.ReadAllLines(path);
@@ -100,7 +93,7 @@ namespace IT_Assessment_2.CSVs
             File.WriteAllLines(path, lines);
         }
 
-        // order
+        // order class
         public class Order
         {
             public int OrderID;
@@ -150,7 +143,9 @@ namespace IT_Assessment_2.CSVs
             public int StockLevel;
             public int ReorderLevel;
 
-            public bool IsLowStock => StockLevel <= ReorderLevel;
+            // separating these out so the dashboard can show them as different KPIs
+            public bool IsOutOfStock => StockLevel <= 0;
+            public bool IsLowStock => StockLevel > 0 && StockLevel <= ReorderLevel;
         }
 
         public static List<Variant> LoadVariants(string path)

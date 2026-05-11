@@ -1,65 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IT_Assessment_2.Models
 {
-    public class Products
+    // singular - one product
+    public class Product
     {
-       
-        // to implement: ProductID,ProductName,CategoryID,Description,BasePrice,Brand,ImagePath,Active,DateAdded
+        // CSV columns: ProductID, ProductName, CategoryID, Description,
+        //              BasePrice, Brand, ImagePath, Active, DateAdded
 
-        // enumerated categories for easier accessibility
-        public enum CategoryID
-        {
-            Dresses = 1,
-            Tops = 2,
-            Bottoms = 3,
-            Outerwear = 4,
-            Accessories = 5,
-            Footwear = 6
-        }
-        public Guid ProductID { get; set; }
+        public int ProductID { get; set; }
         public string ProductName { get; set; }
+        public CategoryID Category { get; set; }      // renamed from CategoryID to avoid name collision
         public string Description { get; set; } = string.Empty;
-
         public decimal BasePrice { get; set; }
-
         public string Brand { get; set; }
-
+        public string ImagePath { get; set; }
         public bool Active { get; set; } = true;
-
         public DateTime DateAdded { get; set; } = DateTime.Today;
 
-        public List<Variant> Variants { get; set; } = new();
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        // variants attached to this product (loaded separately from variants.csv)
+        public List<Variant> Variants { get; set; } = new List<Variant>();
 
-        public int TotalStock => Variants.Sum(v => v.StockQty); // implementing low stock threshold for KPI
-        public decimal MinPrice => Variants.Count > 0
-                                        ? Variants.Min(v => v.Price)
-                                        : 0m;
+        // computed properties — used by the inventory KPI tiles
+        public int TotalStock => Variants.Sum(v => v.StockLevel);
+        public decimal MinPrice => BasePrice;   // single price model — all variants share BasePrice
         public bool HasLowStock => Variants.Any(v => v.IsLowStock);
         public bool HasOutOfStock => Variants.Any(v => v.IsOutOfStock);
     }
 
-    public class Variants
+    // singular - one variant
+    public class Variant
     {
-        // to implement: VariantID,ProductID,Size,Color,SKU,StockLevel,ReorderLevel
+        // CSV columns: VariantID, ProductID, Size, Color, SKU, StockLevel, ReorderLevel
 
-        public Guid VariantID { get; set; }
-        public Guid ProductID { get; set; }
-
+        public int VariantID { get; set; }
+        public int ProductID { get; set; }
         public string Size { get; set; }
-
-        public string Color { get;set; }
-
+        public string Color { get; set; }
         public string SKU { get; set; }
+        public int StockLevel { get; set; }
+        public int ReorderLevel { get; set; }
 
-        public int StockLevel { get; set; } = 0;
+        // computed properties
+        public bool IsLowStock => StockLevel > 0 && StockLevel <= ReorderLevel;
+        public bool IsOutOfStock => StockLevel <= 0;
+    }
 
-        public int ReorderLevel { get; set; } = 0;
+    // enumerated categories
+    public enum CategoryID
+    {
+        Dresses = 1,
+        Tops = 2,
+        Bottoms = 3,
+        Outerwear = 4,
+        Accessories = 5,
+        Footwear = 6
     }
 }
