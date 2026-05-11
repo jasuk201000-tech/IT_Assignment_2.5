@@ -12,10 +12,12 @@ namespace IT_Assessment_2.Forms
         public DashboardForm1()
         {
             InitializeComponent();
-
             SetUpUserInfo();
             PopulateKPILabels();
             ApplyRoleBasedAccess();
+            ConfigureLowStockGrid();
+            PopulateLowStockGrid();
+
         }
 
         // setting up user info
@@ -106,6 +108,85 @@ namespace IT_Assessment_2.Forms
                 button9.Visible = false;   // reports
                 button4.Visible = false;   // Reports quick action
             }
+        }
+
+        private void PopulateLowStockGrid()
+        {
+            try
+            {
+                var products = CsvHelper.LoadProducts(Paths.Products);
+                var variants = CsvHelper.LoadVariants(Paths.Variants);
+
+                // join variants -> products so we can show readable names
+                var lowStockRows = variants
+                    .Where(v => v.IsLowStock || v.IsOutOfStock)
+                    .Join(products,
+                          v => v.ProductID,
+                          p => p.ProductID,
+                          (v, p) => new
+                          {
+                              Product = p.ProductName,
+                              Size = v.Size,
+                              SKU = v.SKU,
+                              Stock = v.StockLevel,
+                              Reorder = v.ReorderLevel,
+                              Status = v.IsOutOfStock ? "OUT OF STOCK" : "LOW",
+                          })
+                    .OrderBy(r => r.Stock)        // most urgent first (0s on top)
+                    .ThenBy(r => r.Product)
+                    .ToList();
+
+                dataGridView1.DataSource = lowStockRows;
+
+                // pretty up the grid after binding
+                ConfigureLowStockGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Could not load low-stock data: " + ex.Message,
+                    "Data Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ConfigureLowStockGrid()
+        {
+            // safety check — if binding failed, no columns exist
+            if (dataGridView1.Columns.Count == 0) return;
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+
+            // column header text (nicer than the property names)
+            dataGridView1.Columns["Product"].HeaderText = "Product";
+            dataGridView1.Columns["Size"].HeaderText = "Size";
+            dataGridView1.Columns["SKU"].HeaderText = "SKU";
+            dataGridView1.Columns["Stock"].HeaderText = "Stock";
+            dataGridView1.Columns["Reorder"].HeaderText = "Reorder At";
+            dataGridView1.Columns["Status"].HeaderText = "Status";
+
+            // colour the OUT OF STOCK rows red for instant visual scan
+            dataGridView1.CellFormatting += (s, e) =>
+            {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+                var statusCell = dataGridView1.Rows[e.RowIndex].Cells["Status"];
+                if (statusCell?.Value?.ToString() == "OUT OF STOCK")
+                {
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = AmanePOSHelpers.AmaneStyling.Danger;
+                }
+                else
+                {
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = AmanePOSHelpers.AmaneStyling.Warning;
+                }
+            };
         }
     }
 }

@@ -175,8 +175,6 @@ namespace IT_Assessment_2.CSVs
             public int CategoryID;
             public string Description;
             public decimal BasePrice;
-            public string Brand;
-            public string ImagePath;
             public bool Active;
             public DateTime DateAdded;
         }
@@ -193,10 +191,8 @@ namespace IT_Assessment_2.CSVs
                     CategoryID = int.Parse(f[2]),
                     Description = f[3],
                     BasePrice = decimal.Parse(f[4], CultureInfo.InvariantCulture),
-                    Brand = f[5],
-                    ImagePath = f[6],
-                    Active = bool.Parse(f[7]),
-                    DateAdded = DateTime.Parse(f[8], CultureInfo.InvariantCulture),
+                    Active = bool.Parse(f[5]),
+                    DateAdded = DateTime.Parse(f[6], CultureInfo.InvariantCulture),
                 });
             }
             return list;
