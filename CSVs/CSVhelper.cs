@@ -52,7 +52,7 @@ namespace IT_Assessment_2.CSVs
             {
                 list.Add(new Staff
                 {
-                    StaffID = int.Parse(f[0]),
+                    StaffID = Guid.Parse(f[0]),
                     FirstName = f[1],
                     LastName = f[2],
                     Username = f[3],
@@ -118,20 +118,47 @@ namespace IT_Assessment_2.CSVs
             {
                 list.Add(new Products
                 {
-                    ProductID = int.Parse(f[0]),
+                    ProductID = Guid.Parse(f[0]),
                     ProductName = f[1],
-                    LastName = f[2],
-                    Username = f[3],
-                    Password = f[4],
-                    PIN = f[5],
-                    Role = (UserRole)int.Parse(f[6]),   // cast int -> enum
-                    Email = f[7],
-                    Active = bool.Parse(f[8]),
-                    DateCreated = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
-                    CustomersServed = int.Parse(f[10]),
+                    CategoryID = int.Parse(f[2]),
+                    Description = f[3],
+                    BasePrice = f[4],
+                    Active = f[5],
+                    DateAdded = DateTime.Parse(f[9], CultureInfo.InvariantCulture),
                 });
             }
             return list;
+        }
+
+        public class Variants
+        {
+            //VariantID,ProductID,Size,Color,SKU,StockLevel,ReorderLevel
+            public Guid VariantID;
+            public Guid ProductID;
+            public string Size;
+            public string Color;
+            public string SKU;
+            public int StockLevel;
+            public int ReorderLevel;
+
+        }
+
+        public static List<Variants> LoadVariants(string path)
+        {
+            var list = new List<Variants>();
+            foreach (var f in ReadRows(path))
+                list.Add(new Products
+                {
+                    VariantID = Guid.Parse(f[0]),
+                    ProductID = Guid.Parse(f[1]),
+                    Size = f[2],
+                    Color = f[3],
+                    SKU = f[4],
+                    StockLevel = f[5],
+                    ReorderLevel = f[6]
+                }
+        
+        
         }
     }
 }
