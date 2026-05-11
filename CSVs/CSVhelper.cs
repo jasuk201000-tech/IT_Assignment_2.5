@@ -166,5 +166,40 @@ namespace IT_Assessment_2.CSVs
             }
             return list;
         }
+
+        // products
+        public class Product
+        {
+            public int ProductID;
+            public string ProductName;
+            public int CategoryID;
+            public string Description;
+            public decimal BasePrice;
+            public string Brand;
+            public string ImagePath;
+            public bool Active;
+            public DateTime DateAdded;
+        }
+
+        public static List<Product> LoadProducts(string path)
+        {
+            var list = new List<Product>();
+            foreach (var f in ReadRows(path))
+            {
+                list.Add(new Product
+                {
+                    ProductID = int.Parse(f[0]),
+                    ProductName = f[1],
+                    CategoryID = int.Parse(f[2]),
+                    Description = f[3],
+                    BasePrice = decimal.Parse(f[4], CultureInfo.InvariantCulture),
+                    Brand = f[5],
+                    ImagePath = f[6],
+                    Active = bool.Parse(f[7]),
+                    DateAdded = DateTime.Parse(f[8], CultureInfo.InvariantCulture),
+                });
+            }
+            return list;
+        }
     }
 }
