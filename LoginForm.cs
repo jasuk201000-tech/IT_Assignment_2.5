@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IT_Assessment_2.Forms
+namespace IT_Assessment_2
 {
-    public partial class PasswordLogin : UserControl
+    public partial class Form1 : Form
     {
-        public PasswordLogin()
+        public Form1()
         {
             InitializeComponent();
         }

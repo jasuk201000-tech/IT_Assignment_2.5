@@ -1,4 +1,4 @@
-﻿using AmanePOSHelpers;
+using AmanePOSHelpers;
 using IT_Assignment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
@@ -108,7 +108,7 @@ namespace IT_Assessment_2.Forms
             this.pinInput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.pinInput.Location = new System.Drawing.Point(120, 305);
             this.pinInput.Name = "pinInput";
-            this.pinInput.PasswordChar = '•';
+            this.pinInput.PasswordChar = '�';
             this.pinInput.ReadOnly = true;
             this.pinInput.Size = new System.Drawing.Size(400, 70);
             this.pinInput.TabIndex = 4;

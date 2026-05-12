@@ -1,4 +1,4 @@
-﻿using IT_Assessment_2.CSVs;
+using IT_Assessment_2.CSVs;
 using IT_Assignment_2.Helpers;
 using System;
 using System.Linq;
@@ -95,5 +95,29 @@ namespace IT_Assessment_2.Forms
             SwitchToPin?.Invoke(this, EventArgs.Empty);
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

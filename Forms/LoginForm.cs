@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using IT_Assessment_2.Forms;
 using AmanePOSHelpers;
@@ -7,27 +7,20 @@ namespace IT_Assessment_2.Forms
 {
     public partial class LoginForm : Form
     {
-        private PasswordControl1 passwordScreen;
-        private PINControl1 pinScreen;
-
         public LoginForm()
         {
             InitializeComponent();
 
-            // create login screens (UserControls only — dashboard is separate)
-            passwordScreen = new PasswordControl1();
-            pinScreen = new PINControl1();
-
             // PASSWORD SCREEN EVENTS
-            passwordScreen.LoginSuccess += LoginScreen_LoginSuccess;
-            passwordScreen.SwitchToPin += PasswordScreen_SwitchToPin;
+            PasswordControl1.LoginSuccess += LoginScreen_LoginSuccess;
+            button2.Click += PasswordScreen_SwitchToPin;
 
             // PIN SCREEN EVENTS
-            pinScreen.LoginSuccess += LoginScreen_LoginSuccess;
-            pinScreen.SwitchToPassword += PinScreen_SwitchToPassword;
+            PINControl1.LoginSuccess += LoginScreen_LoginSuccess;
+            PINControl1.SwitchToPassword += PinScreen_SwitchToPassword;
 
             // show default screen
-            ShowScreen(passwordScreen);
+            ShowScreen(passwordControl1);
         }
 
         // login success — open dashboard, hide this form
@@ -42,13 +35,13 @@ namespace IT_Assessment_2.Forms
         // switch to pin
         private void PasswordScreen_SwitchToPin(object sender, EventArgs e)
         {
-            ShowScreen(pinScreen);
+            ShowScreen(pINControl1);
         }
 
         // switch to password
         private void PinScreen_SwitchToPassword(object sender, EventArgs e)
         {
-            ShowScreen(passwordScreen);
+            ShowScreen(passwordControl1);
         }
 
         // screen switching between user controls

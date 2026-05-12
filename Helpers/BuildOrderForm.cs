@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IT_Assessment_2.Forms
+namespace IT_Assessment_2.Helpers
 {
     public partial class BuildOrderForm : Form
     {

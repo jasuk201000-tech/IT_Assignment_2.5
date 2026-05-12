@@ -1,4 +1,4 @@
-﻿namespace IT_Assessment_2.Forms
+﻿namespace IT_Assessment_2.Helpers
 {
     partial class BuildOrderForm
     {

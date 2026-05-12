@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using AmanePOSHelpers;
@@ -37,6 +37,9 @@ namespace IT_Assessment_2.Forms
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlLoginContainer = new System.Windows.Forms.Panel();
             this.LogoBtn = new System.Windows.Forms.Button();
+            this.passwordControl1 = new IT_Assessment_2.Forms.PasswordControl1();
+            this.pINControl1 = new IT_Assessment_2.Forms.PINControl1();
+            this.pnlLoginContainer.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,10 +55,29 @@ namespace IT_Assessment_2.Forms
             // pnlLoginContainer
             // 
             this.pnlLoginContainer.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.pnlLoginContainer.Controls.Add(this.pINControl1);
+            this.pnlLoginContainer.Controls.Add(this.passwordControl1);
             this.pnlLoginContainer.Location = new System.Drawing.Point(732, 218);
             this.pnlLoginContainer.Name = "pnlLoginContainer";
             this.pnlLoginContainer.Size = new System.Drawing.Size(648, 743);
             this.pnlLoginContainer.TabIndex = 1;
+            // 
+            // passwordControl1
+            // 
+            this.passwordControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.passwordControl1.Location = new System.Drawing.Point(0, 0);
+            this.passwordControl1.Name = "passwordControl1";
+            this.passwordControl1.Size = new System.Drawing.Size(648, 743);
+            this.passwordControl1.TabIndex = 0;
+            // 
+            // pINControl1
+            // 
+            this.pINControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pINControl1.Location = new System.Drawing.Point(0, 0);
+            this.pINControl1.Name = "pINControl1";
+            this.pINControl1.Size = new System.Drawing.Size(648, 743);
+            this.pINControl1.TabIndex = 1;
+            this.pINControl1.Visible = false;
             // 
             // LogoBtn
             // 
@@ -77,6 +99,7 @@ namespace IT_Assessment_2.Forms
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.Text = "Log";
+            this.pnlLoginContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -87,5 +110,7 @@ namespace IT_Assessment_2.Forms
         private Panel panel1;
         private Panel pnlLoginContainer;   
         private Button LogoBtn;
+        private PasswordControl1 passwordControl1;
+        private PINControl1 pINControl1;
     }
 }
