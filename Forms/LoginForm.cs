@@ -13,7 +13,7 @@ namespace IT_Assessment_2.Forms
 
             // PASSWORD SCREEN EVENTS
             PasswordControl1.LoginSuccess += LoginScreen_LoginSuccess;
-            button2.Click += PasswordScreen_SwitchToPin;
+            Button2.Click += PasswordScreen_SwitchToPin;
 
             // PIN SCREEN EVENTS
             PINControl1.LoginSuccess += LoginScreen_LoginSuccess;
@@ -21,6 +21,11 @@ namespace IT_Assessment_2.Forms
 
             // show default screen
             ShowScreen(passwordControl1);
+        }
+
+        private void DefaultScreen()
+        { 
+            ShowScreen(PasswordControl1 as PasswordControl1);
         }
 
         // login success — open dashboard, hide this form
@@ -35,7 +40,7 @@ namespace IT_Assessment_2.Forms
         // switch to pin
         private void PasswordScreen_SwitchToPin(object sender, EventArgs e)
         {
-            ShowScreen(pINControl1);
+            ShowScreen(PINControl1);
         }
 
         // switch to password

@@ -10,7 +10,9 @@ namespace IT_Assessment_2.CSVs
 {
     public static class CsvHelper
     {
-        // skips header row
+        // ============================================================
+        // CORE — read CSV rows
+        // ============================================================
         public static List<string[]> ReadRows(string path)
         {
             var rows = new List<string[]>();
@@ -24,10 +26,12 @@ namespace IT_Assessment_2.CSVs
             return rows;
         }
 
-        // staff class
+        // ============================================================
+        // STAFF
+        // ============================================================
         public class Staff
         {
-            public int StaffID;             // was Guid — now int
+            public int StaffID;
             public string FirstName;
             public string LastName;
             public string Username;
@@ -93,7 +97,82 @@ namespace IT_Assessment_2.CSVs
             File.WriteAllLines(path, lines);
         }
 
-        // order class
+        // ============================================================
+        // PRODUCT
+        // ============================================================
+        public class Product
+        {
+            public int ProductID;
+            public string ProductName;
+            public int CategoryID;
+            public string Description;
+            public decimal BasePrice;
+            public string Brand;
+            public string ImagePath;
+            public bool Active;
+            public DateTime DateAdded;
+        }
+
+        public static List<Product> LoadProducts(string path)
+        {
+            var list = new List<Product>();
+            foreach (var f in ReadRows(path))
+            {
+                list.Add(new Product
+                {
+                    ProductID = int.Parse(f[0]),
+                    ProductName = f[1],
+                    CategoryID = int.Parse(f[2]),
+                    Description = f[3],
+                    BasePrice = decimal.Parse(f[4], CultureInfo.InvariantCulture),
+                    Brand = f[5],
+                    ImagePath = f[6],
+                    Active = bool.Parse(f[7]),
+                    DateAdded = DateTime.Parse(f[8], CultureInfo.InvariantCulture),
+                });
+            }
+            return list;
+        }
+
+        // ============================================================
+        // VARIANT
+        // ============================================================
+        public class Variant
+        {
+            public int VariantID;
+            public int ProductID;
+            public string Size;
+            public string Color;
+            public string SKU;
+            public int StockLevel;
+            public int ReorderLevel;
+
+            public bool IsOutOfStock => StockLevel <= 0;
+            public bool IsLowStock => StockLevel > 0 && StockLevel <= ReorderLevel;
+        }
+
+        public static List<Variant> LoadVariants(string path)
+        {
+            var list = new List<Variant>();
+            foreach (var f in ReadRows(path))
+            {
+                list.Add(new Variant
+                {
+                    VariantID = int.Parse(f[0]),
+                    ProductID = int.Parse(f[1]),
+                    Size = f[2],
+                    Color = f[3],
+                    SKU = f[4],
+                    StockLevel = int.Parse(f[5]),
+                    ReorderLevel = int.Parse(f[6]),
+                });
+            }
+            return list;
+        }
+
+        // ============================================================
+        // ORDER
+        // ============================================================
         public class Order
         {
             public int OrderID;
@@ -132,39 +211,108 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
-        // variant
-        public class Variant
+        /// <summary>
+        /// Appends a single order to orders.csv. Returns the new OrderID.
+        /// </summary>
+        public static int AppendOrder(string path, Order order)
         {
-            public int VariantID;
-            public int ProductID;
-            public string Size;
-            public string Color;
-            public string SKU;
-            public int StockLevel;
-            public int ReorderLevel;
+            // get next order ID by finding max existing
+            int nextId = 1001;
+            if (File.Exists(path))
+            {
+                var existing = LoadOrders(path);
+                if (existing.Count > 0)
+                {
+                    nextId = existing.Max(o => o.OrderID) + 1;
+                }
+            }
 
-            // separating these out so the dashboard can show them as different KPIs
-            public bool IsOutOfStock => StockLevel <= 0;
-            public bool IsLowStock => StockLevel > 0 && StockLevel <= ReorderLevel;
+            order.OrderID = nextId;
+
+            string line = string.Join(",", new[]
+            {
+                order.OrderID.ToString(),
+                order.OrderDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                order.StaffID.ToString(),
+                order.CustomerName,
+                order.Subtotal.ToString("F2", CultureInfo.InvariantCulture),
+                order.DiscountCode ?? "",
+                order.DiscountAmount.ToString("F2", CultureInfo.InvariantCulture),
+                order.TaxAmount.ToString("F2", CultureInfo.InvariantCulture),
+                order.Total.ToString("F2", CultureInfo.InvariantCulture),
+                order.PaymentMethod,
+                order.Status,
+            });
+
+            File.AppendAllLines(path, new[] { line });
+            return nextId;
         }
 
-        public static List<Variant> LoadVariants(string path)
+        // ============================================================
+        // ORDER ITEM
+        // ============================================================
+        public class OrderItem
         {
-            var list = new List<Variant>();
+            public int OrderItemID;
+            public int OrderID;
+            public int VariantID;
+            public string ProductName;
+            public string Size;
+            public int Quantity;
+            public decimal UnitPrice;
+            public decimal LineTotal;
+        }
+
+        public static List<OrderItem> LoadOrderItems(string path)
+        {
+            var list = new List<OrderItem>();
             foreach (var f in ReadRows(path))
             {
-                list.Add(new Variant
+                list.Add(new OrderItem
                 {
-                    VariantID = int.Parse(f[0]),
-                    ProductID = int.Parse(f[1]),
-                    Size = f[2],
-                    Color = f[3],
-                    SKU = f[4],
-                    StockLevel = int.Parse(f[5]),
-                    ReorderLevel = int.Parse(f[6]),
+                    OrderItemID = int.Parse(f[0]),
+                    OrderID = int.Parse(f[1]),
+                    VariantID = int.Parse(f[2]),
+                    ProductName = f[3],
+                    Size = f[4],
+                    Quantity = int.Parse(f[5]),
+                    UnitPrice = decimal.Parse(f[6], CultureInfo.InvariantCulture),
+                    LineTotal = decimal.Parse(f[7], CultureInfo.InvariantCulture),
                 });
             }
             return list;
+        }
+
+        public static void AppendOrderItems(string path, List<OrderItem> items)
+        {
+            int nextId = 1;
+            if (File.Exists(path))
+            {
+                var existing = LoadOrderItems(path);
+                if (existing.Count > 0)
+                {
+                    nextId = existing.Max(i => i.OrderItemID) + 1;
+                }
+            }
+
+            var lines = new List<string>();
+            foreach (var item in items)
+            {
+                item.OrderItemID = nextId++;
+                lines.Add(string.Join(",", new[]
+                {
+                    item.OrderItemID.ToString(),
+                    item.OrderID.ToString(),
+                    item.VariantID.ToString(),
+                    item.ProductName,
+                    item.Size,
+                    item.Quantity.ToString(),
+                    item.UnitPrice.ToString("F2", CultureInfo.InvariantCulture),
+                    item.LineTotal.ToString("F2", CultureInfo.InvariantCulture),
+                }));
+            }
+
+            File.AppendAllLines(path, lines);
         }
     }
 }
