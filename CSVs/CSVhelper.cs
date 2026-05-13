@@ -10,9 +10,7 @@ namespace IT_Assessment_2.CSVs
 {
     public static class CsvHelper
     {
-        // ============================================================
-        // CORE — read CSV rows
-        // ============================================================
+        // reads CSV files without reading the header row
         public static List<string[]> ReadRows(string path)
         {
             var rows = new List<string[]>();
@@ -26,9 +24,7 @@ namespace IT_Assessment_2.CSVs
             return rows;
         }
 
-        // ============================================================
-        // STAFF
-        // ============================================================
+        // staff
         public class Staff
         {
             public int StaffID;
@@ -80,6 +76,7 @@ namespace IT_Assessment_2.CSVs
                 s.Active && s.Username == username && s.Password == password);
         }
 
+        // incrementing and adding customer served when Staff puts in their ID
         public static void IncrementCustomersServed(string path, int staffId)
         {
             string[] lines = File.ReadAllLines(path);
@@ -97,9 +94,7 @@ namespace IT_Assessment_2.CSVs
             File.WriteAllLines(path, lines);
         }
 
-        // ============================================================
-        // PRODUCT
-        // ============================================================
+        // product
         public class Product
         {
             public int ProductID;
@@ -134,9 +129,7 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
-        // ============================================================
-        // VARIANT
-        // ============================================================
+        // variant
         public class Variant
         {
             public int VariantID;
@@ -170,9 +163,7 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
-        // ============================================================
-        // ORDER
-        // ============================================================
+        // order
         public class Order
         {
             public int OrderID;
@@ -211,9 +202,7 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
-        /// <summary>
-        /// Appends a single order to orders.csv. Returns the new OrderID.
-        /// </summary>
+        
         public static int AppendOrder(string path, Order order)
         {
             // get next order ID by finding max existing
@@ -248,9 +237,7 @@ namespace IT_Assessment_2.CSVs
             return nextId;
         }
 
-        // ============================================================
-        // ORDER ITEM
-        // ============================================================
+        // order item
         public class OrderItem
         {
             public int OrderItemID;

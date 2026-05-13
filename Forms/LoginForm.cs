@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using IT_Assessment_2.Forms;
 using AmanePOSHelpers;
+using IT_Assessment_2.CSVs;
 
 namespace IT_Assessment_2.Forms
 {
@@ -25,7 +26,7 @@ namespace IT_Assessment_2.Forms
 
         private void DefaultScreen()
         { 
-            ShowScreen(PasswordControl1 as PasswordControl1);
+            ShowScreen(screen: PasswordControl1 as PasswordControl1);
         }
 
         // login success — open dashboard, hide this form

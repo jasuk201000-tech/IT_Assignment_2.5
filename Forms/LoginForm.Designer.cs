@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using AmanePOSHelpers;
 using IT_Assignment_2.Helpers;
+using IT_Assessment_2.CSVs;
 
 namespace IT_Assessment_2.Forms
 {
@@ -35,12 +36,12 @@ namespace IT_Assessment_2.Forms
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pnlLoginContainer = new System.Windows.Forms.Panel();
             this.LogoBtn = new System.Windows.Forms.Button();
+            this.pnlLoginContainer = new System.Windows.Forms.Panel();
             this.passwordControl1 = new IT_Assessment_2.Forms.PasswordControl1();
             this.pINControl1 = new IT_Assessment_2.Forms.PINControl1();
-            this.pnlLoginContainer.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pnlLoginContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,6 +52,17 @@ namespace IT_Assessment_2.Forms
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2190, 129);
             this.panel1.TabIndex = 0;
+            // 
+            // LogoBtn
+            // 
+            this.LogoBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.LogoBtn.Location = new System.Drawing.Point(97, 43);
+            this.LogoBtn.Name = "LogoBtn";
+            this.LogoBtn.Size = new System.Drawing.Size(217, 74);
+            this.LogoBtn.TabIndex = 0;
+            this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
+            this.LogoBtn.UseVisualStyleBackColor = false;
             // 
             // pnlLoginContainer
             // 
@@ -66,6 +78,7 @@ namespace IT_Assessment_2.Forms
             // 
             this.passwordControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.passwordControl1.Location = new System.Drawing.Point(0, 0);
+            this.passwordControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.passwordControl1.Name = "passwordControl1";
             this.passwordControl1.Size = new System.Drawing.Size(648, 743);
             this.passwordControl1.TabIndex = 0;
@@ -74,21 +87,11 @@ namespace IT_Assessment_2.Forms
             // 
             this.pINControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pINControl1.Location = new System.Drawing.Point(0, 0);
+            this.pINControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pINControl1.Name = "pINControl1";
             this.pINControl1.Size = new System.Drawing.Size(648, 743);
             this.pINControl1.TabIndex = 1;
             this.pINControl1.Visible = false;
-            // 
-            // LogoBtn
-            // 
-            this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.LogoBtn.Location = new System.Drawing.Point(97, 43);
-            this.LogoBtn.BackColor = AmaneStyling.NavBar;
-            this.LogoBtn.Name = "LogoBtn";
-            this.LogoBtn.Size = new System.Drawing.Size(217, 74);
-            this.LogoBtn.TabIndex = 0;
-            this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
-            this.LogoBtn.UseVisualStyleBackColor = false;
             // 
             // LoginForm
             // 
@@ -99,8 +102,8 @@ namespace IT_Assessment_2.Forms
             this.Controls.Add(this.panel1);
             this.Name = "LoginForm";
             this.Text = "Log";
-            this.pnlLoginContainer.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.pnlLoginContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
