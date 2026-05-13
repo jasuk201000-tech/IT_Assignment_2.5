@@ -129,6 +129,82 @@ namespace IT_Assessment_2.CSVs
             return list;
         }
 
+        public static int AppendProduct(string path, Product product)
+        {
+            int nextId = 1;
+            if (File.Exists(path))
+            {
+                var existing = LoadProducts(path);
+                if (existing.Count > 0)
+                {
+                    nextId = existing.Max(p => p.ProductID) + 1;
+                }
+            }
+
+            product.ProductID = nextId;
+
+            string line = string.Join(",", new[]
+            {
+        product.ProductID.ToString(),
+        product.ProductName,
+        product.CategoryID.ToString(),
+        product.Description,
+        product.BasePrice.ToString("F2", CultureInfo.InvariantCulture),
+        product.Brand,
+        product.ImagePath ?? "",
+        product.Active.ToString(),
+        product.DateAdded.ToString("yyyy-MM-dd"),
+    });
+
+            File.AppendAllLines(path, new[] { line });
+            return nextId;
+        }
+
+        public static void UpdateProduct(string path, Product product)
+        {
+            string[] lines = File.ReadAllLines(path);
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var parts = lines[i].Split(',');
+                if (int.Parse(parts[0]) == product.ProductID)
+                {
+                    lines[i] = string.Join(",", new[]
+                    {
+                product.ProductID.ToString(),
+                product.ProductName,
+                product.CategoryID.ToString(),
+                product.Description,
+                product.BasePrice.ToString("F2", CultureInfo.InvariantCulture),
+                product.Brand,
+                product.ImagePath ?? "",
+                product.Active.ToString(),
+                product.DateAdded.ToString("yyyy-MM-dd"),
+            });
+                    break;
+                }
+            }
+            File.WriteAllLines(path, lines);
+        }
+
+        public static void DeleteProduct(string path, int productId)
+        {
+            string[] lines = File.ReadAllLines(path);
+            var kept = new List<string> { lines[0] };  // keep header
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                var parts = lines[i].Split(',');
+                if (int.Parse(parts[0]) != productId)
+                {
+                    kept.Add(lines[i]);
+                }
+            }
+
+            File.WriteAllLines(path, kept);
+        }
+
+
         // variant
         public class Variant
         {
@@ -161,6 +237,95 @@ namespace IT_Assessment_2.CSVs
                 });
             }
             return list;
+        }
+
+        public static int AppendVariant(string path, Variant variant)
+        {
+            int nextId = 1;
+            if (File.Exists(path))
+            {
+                var existing = LoadVariants(path);
+                if (existing.Count > 0)
+                {
+                    nextId = existing.Max(v => v.VariantID) + 1;
+                }
+            }
+
+            variant.VariantID = nextId;
+
+            string line = string.Join(",", new[]
+            {
+        variant.VariantID.ToString(),
+        variant.ProductID.ToString(),
+        variant.Size,
+        variant.Color ?? "",
+        variant.SKU,
+        variant.StockLevel.ToString(),
+        variant.ReorderLevel.ToString(),
+    });
+
+            File.AppendAllLines(path, new[] { line });
+            return nextId;
+        }
+
+        public static void UpdateVariant(string path, Variant variant)
+        {
+            string[] lines = File.ReadAllLines(path);
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var parts = lines[i].Split(',');
+                if (int.Parse(parts[0]) == variant.VariantID)
+                {
+                    lines[i] = string.Join(",", new[]
+                    {
+                variant.VariantID.ToString(),
+                variant.ProductID.ToString(),
+                variant.Size,
+                variant.Color ?? "",
+                variant.SKU,
+                variant.StockLevel.ToString(),
+                variant.ReorderLevel.ToString(),
+            });
+                    break;
+                }
+            }
+            File.WriteAllLines(path, lines);
+        }
+
+        public static void DeleteVariant(string path, int variantId)
+        {
+            string[] lines = File.ReadAllLines(path);
+            var kept = new List<string> { lines[0] };
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                var parts = lines[i].Split(',');
+                if (int.Parse(parts[0]) != variantId)
+                {
+                    kept.Add(lines[i]);
+                }
+            }
+
+            File.WriteAllLines(path, kept);
+        }
+
+        public static void DeleteVariantsForProduct(string path, int productId)
+        {
+            string[] lines = File.ReadAllLines(path);
+            var kept = new List<string> { lines[0] };
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(lines[i])) continue;
+                var parts = lines[i].Split(',');
+                if (int.Parse(parts[1]) != productId)  // index 1 is ProductID
+                {
+                    kept.Add(lines[i]);
+                }
+            }
+
+            File.WriteAllLines(path, kept);
         }
 
         // order
