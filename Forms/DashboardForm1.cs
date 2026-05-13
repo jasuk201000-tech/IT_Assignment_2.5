@@ -1,4 +1,5 @@
 ﻿using IT_Assessment_2.CSVs;
+using IT_Assessment_2.Models;
 using IT_Assignment_2.Helpers;
 using System;
 using System.Linq;
@@ -15,10 +16,15 @@ namespace IT_Assessment_2.Forms
 
             SetUpUserInfo();
             PopulateKPILabels();
+            PopulateLowStockGrid();
             ApplyRoleBasedAccess();
+
+            // wire up "new order" quick action
+            button1.Click += (s, e) => new BuildOrderForm().Show();
         }
 
-        // setting up user info
+
+        // welcome
         private void SetUpUserInfo()
         {
             if (SessionManager.CurrentUser != null)
@@ -33,7 +39,7 @@ namespace IT_Assessment_2.Forms
             dateLbl.Text = DateTime.Now.ToString("dddd, d MMMM yyyy");
         }
 
-        // kpi tiles from CSV file
+        // kpi tiles
         private void PopulateKPILabels()
         {
             try
@@ -41,20 +47,15 @@ namespace IT_Assessment_2.Forms
                 var orders = CsvHelper.LoadOrders(Paths.Orders);
                 var variants = CsvHelper.LoadVariants(Paths.Variants);
 
-                // today's sales: sum of Total for any completed order placed today
                 decimal todaysSales = orders
                     .Where(o => o.Status == "Completed" && o.OrderDate.Date == DateTime.Today)
                     .Sum(o => o.Total);
 
-                // today's order count
                 int todaysOrders = orders
                     .Count(o => o.Status == "Completed" && o.OrderDate.Date == DateTime.Today);
 
-                // low stock count: any variant at or below its reorder level
-                int lowStockCount = variants.Count(v => v.IsLowStock);
-
-                // returns: not tracked yet — placeholder
-                int returnsCount = 0;
+                int lowStockCount = variants.Count(v => v.IsLowStock || v.IsOutOfStock);
+                int returnsCount = 0; // placeholder
 
                 intSalesLbl.Text = $"${todaysSales:F2}";
                 intOrdersLbl.Text = todaysOrders.ToString();
@@ -76,17 +77,67 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // applying role based access
+        // low-stock grid
+        private void PopulateLowStockGrid()
+        {
+            try
+            {
+                var products = CsvHelper.LoadProducts(Paths.Products);
+                var variants = CsvHelper.LoadVariants(Paths.Variants);
+
+                var lowStockRows = variants
+                    .Where(v => v.IsLowStock || v.IsOutOfStock)
+                    .Join(products,
+                          v => v.ProductID,
+                          p => p.ProductID,
+                          (v, p) => new
+                          {
+                              Product = p.ProductName,
+                              Brand = p.Brand,
+                              Size = v.Size,
+                              SKU = v.SKU,
+                              Stock = v.StockLevel,
+                              Reorder = v.ReorderLevel,
+                              Status = v.IsOutOfStock ? "OUT OF STOCK" : "LOW",
+                          })
+                    .OrderBy(r => r.Stock)
+                    .ThenBy(r => r.Product)
+                    .ToList();
+
+                dataGridView1.DataSource = lowStockRows;
+                ConfigureGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Could not load low-stock data: " + ex.Message,
+                    "Data Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ConfigureGrid()
+        {
+            if (dataGridView1.Columns.Count == 0) return;
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+        }
+
+        // role based access
         private void ApplyRoleBasedAccess()
         {
             if (SessionManager.CurrentUser == null) return;
 
             var role = SessionManager.CurrentUser.Role;
-
-            // Admin and Manager see all KPIs; Cashier only sees today's count
             bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
 
-            // hide sensitive KPI numbers from cashiers
             intSalesLbl.Visible = isPrivileged;
             salesLbl.Visible = isPrivileged;
             lowstockintLbl.Visible = isPrivileged;
@@ -94,18 +145,18 @@ namespace IT_Assessment_2.Forms
             returnsintLbl.Visible = isPrivileged;
             returnsLbl.Visible = isPrivileged;
 
-            // cashiers always see today's order count (their KPI)
-            intOrdersLbl.Visible = true;
-            ordersLbl.Visible = true;
-
-            // hide nav items the cashier shouldn't see
-            // (your design doc: Cashier sees Home, Inventory, Orders only)
             if (role == UserRole.Cashier)
             {
                 button8.Visible = false;   // transactions
                 button9.Visible = false;   // reports
                 button4.Visible = false;   // Reports quick action
             }
+        }
+
+        private void NewOrderButton_Click(object sender, EventArgs e)
+        {
+            var orderForm = new BuildOrderForm();
+            orderForm.Show();
         }
     }
 }
