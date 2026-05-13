@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using IT_Assessment_2.CSVs;
-using IT_Assessment_2.Models;
 using IT_Assignment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
@@ -18,12 +17,6 @@ namespace IT_Assessment_2.Forms
         private const decimal TAX_RATE = 0.10m;
         private decimal _discountRate = 0m;
         private string _discountCode = "";
-
-        public class AddProductEventArgs : EventArgs
-        {
-            public CsvHelper.Product Product { get; set; }
-            public CsvHelper.Variant Variant { get; set; }
-        }
 
         public BuildOrderForm()
         {
@@ -41,7 +34,9 @@ namespace IT_Assessment_2.Forms
             lblOrderNumber.Text = $"order #{GetNextOrderNumber()}";
         }
 
-        // load data
+        // =========================
+        // LOAD DATA
+        // =========================
         private void LoadCatalog()
         {
             try
@@ -71,7 +66,9 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // product grid
+        // =========================
+        // PRODUCT GRID
+        // =========================
         private void PopulateProductGrid()
         {
             PopulateProductGrid("");
@@ -91,7 +88,7 @@ namespace IT_Assessment_2.Forms
                 var card = new ProductCardControl();
                 var variants = _variants.Where(v => v.ProductID == product.ProductID).ToList();
                 card.Bind(product, variants);
-                card_AddRequested+= Card_AddRequested;
+                card.AddRequested += Card_AddRequested;
                 flpProducts.Controls.Add(card);
             }
         }
@@ -101,7 +98,9 @@ namespace IT_Assessment_2.Forms
             PopulateProductGrid(txtSearch.Text);
         }
 
-        // addding and removing items
+        // =========================
+        // ADDING / REMOVING ITEMS
+        // =========================
         private void Card_AddRequested(object sender, AddProductEventArgs e)
         {
             var line = new OrderLineItemControl();
@@ -123,7 +122,9 @@ namespace IT_Assessment_2.Forms
             RefreshTotals();
         }
 
-        // totals
+        // =========================
+        // TOTALS
+        // =========================
         private void RefreshTotals()
         {
             decimal subtotal = _lineItems.Sum(li => li.LineTotal);
@@ -138,7 +139,9 @@ namespace IT_Assessment_2.Forms
             lblTotal.Text = $"${total:F2}";
         }
 
-       // discount
+        // =========================
+        // DISCOUNT
+        // =========================
         private void BtnApplyDiscount_Click(object sender, EventArgs e)
         {
             string code = txtDiscount.Text.Trim().ToUpperInvariant();
@@ -170,7 +173,9 @@ namespace IT_Assessment_2.Forms
             RefreshTotals();
         }
 
-        // completing order
+        // =========================
+        // COMPLETE ORDER
+        // =========================
         private void BtnComplete_Click(object sender, EventArgs e)
         {
             if (_lineItems.Count == 0)
@@ -229,9 +234,9 @@ namespace IT_Assessment_2.Forms
                 CsvHelper.AppendOrderItems(Paths.OrderItems, orderItems);
                 CsvHelper.IncrementCustomersServed(Paths.Staff, SessionManager.CurrentUser.StaffID);
 
-                GenerateReceiptPdf(order, orderitems);
+                GenerateReceiptPdf(order, orderItems);
 
-                MessageBox.Show($"Order #{orderId} completed. Receipt saved.",
+                MessageBox.Show($"Order #{orderId} completed.\nReceipt saved.",
                                 "Order Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ClearOrder();
@@ -244,9 +249,10 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        private void GenerateReceiptPdf(CsvHelper.Order order, List<OrderItem> items)
+        private void GenerateReceiptPdf(CsvHelper.Order order, List<CsvHelper.OrderItem> items)
         {
-            // placeholder for PDF
+            // "PDF" placeholder — saves as .txt next to the .exe in a Receipts/ folder.
+            // Swap for a real PDF library (e.g. iText, PdfSharp) when you have time.
             string receiptsDir = Path.Combine(Application.StartupPath, "Receipts");
             Directory.CreateDirectory(receiptsDir);
 
@@ -286,7 +292,9 @@ namespace IT_Assessment_2.Forms
             File.WriteAllLines(path, lines);
         }
 
-        // clearing the page
+        // =========================
+        // CLEAR
+        // =========================
         private void BtnClear_Click(object sender, EventArgs e)
         {
             if (_lineItems.Count == 0) return;

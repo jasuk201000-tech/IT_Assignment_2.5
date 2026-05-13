@@ -1,35 +1,31 @@
 using System;
 using System.Windows.Forms;
-using IT_Assessment_2.Forms;
-using AmanePOSHelpers;
-using IT_Assessment_2.CSVs;
 
 namespace IT_Assessment_2.Forms
 {
     public partial class LoginForm : Form
     {
+        private PasswordControl1 passwordScreen;
+        private PINControl1 pinScreen;
+
         public LoginForm()
         {
             InitializeComponent();
 
-            // PASSWORD SCREEN EVENTS
-            PasswordControl1.LoginSuccess += LoginScreen_LoginSuccess;
-            Button2.Click += PasswordScreen_SwitchToPin;
+            passwordScreen = new PasswordControl1();
+            pinScreen = new PINControl1();
 
-            // PIN SCREEN EVENTS
-            PINControl1.LoginSuccess += LoginScreen_LoginSuccess;
-            PINControl1.SwitchToPassword += PinScreen_SwitchToPassword;
+            // password screen events
+            passwordScreen.LoginSuccess += LoginScreen_LoginSuccess;
+            passwordScreen.SwitchToPin += PasswordScreen_SwitchToPin;
 
-            // show default screen
-            ShowScreen(passwordControl1);
+            // PIN screen events
+            pinScreen.LoginSuccess += LoginScreen_LoginSuccess;
+            pinScreen.SwitchToPassword += PinScreen_SwitchToPassword;
+
+            ShowScreen(passwordScreen);
         }
 
-        private void DefaultScreen()
-        { 
-            ShowScreen(screen: PasswordControl1 as PasswordControl1);
-        }
-
-        // login success — open dashboard, hide this form
         private void LoginScreen_LoginSuccess(object sender, EventArgs e)
         {
             var dashboard = new DashboardForm1();
@@ -38,19 +34,16 @@ namespace IT_Assessment_2.Forms
             this.Hide();
         }
 
-        // switch to pin
         private void PasswordScreen_SwitchToPin(object sender, EventArgs e)
         {
-            ShowScreen(PINControl1);
+            ShowScreen(pinScreen);
         }
 
-        // switch to password
         private void PinScreen_SwitchToPassword(object sender, EventArgs e)
         {
-            ShowScreen(passwordControl1);
+            ShowScreen(passwordScreen);
         }
 
-        // screen switching between user controls
         private void ShowScreen(UserControl screen)
         {
             pnlLoginContainer.Controls.Clear();
