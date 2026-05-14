@@ -1,9 +1,16 @@
 ﻿namespace IT_Assessment_2.Forms
 {
-    partial class InventoryForm
+    partial class ViewOrderForm
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,13 +22,12 @@
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            this.btnAddProduct = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.lblCount = new System.Windows.Forms.Label();
-            this.flpProducts = new System.Windows.Forms.FlowLayoutPanel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -29,65 +35,12 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.LogoBtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnAddProduct
-            // 
-            this.btnAddProduct.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.btnAddProduct.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddProduct.FlatAppearance.BorderSize = 0;
-            this.btnAddProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddProduct.Font = new System.Drawing.Font("Cambria", 9F);
-            this.btnAddProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnAddProduct.Location = new System.Drawing.Point(1226, 254);
-            this.btnAddProduct.Name = "btnAddProduct";
-            this.btnAddProduct.Size = new System.Drawing.Size(185, 33);
-            this.btnAddProduct.TabIndex = 2;
-            this.btnAddProduct.Text = "+ add new product";
-            this.btnAddProduct.UseVisualStyleBackColor = false;
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearch.Font = new System.Drawing.Font("Cambria", 10F);
-            this.txtSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            this.txtSearch.Location = new System.Drawing.Point(90, 248);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(600, 39);
-            this.txtSearch.TabIndex = 3;
-            // 
-            // lblCount
-            // 
-            this.lblCount.AutoSize = true;
-            this.lblCount.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic);
-            this.lblCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            this.lblCount.Location = new System.Drawing.Point(715, 253);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(136, 28);
-            this.lblCount.TabIndex = 4;
-            this.lblCount.Text = "0 product(s)";
-            // 
-            // flpProducts
-            // 
-            this.flpProducts.AutoScroll = true;
-            this.flpProducts.BackColor = System.Drawing.Color.White;
-            this.flpProducts.Location = new System.Drawing.Point(90, 309);
-            this.flpProducts.Name = "flpProducts";
-            this.flpProducts.Size = new System.Drawing.Size(1762, 831);
-            this.flpProducts.TabIndex = 5;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Cambria", 7.875F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(871, 254);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(304, 33);
-            this.comboBox1.TabIndex = 6;
-            this.comboBox1.Text = "select category";
             // 
             // panel3
             // 
@@ -98,9 +51,9 @@
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.LogoBtn);
-            this.panel3.Location = new System.Drawing.Point(-42, -3);
+            this.panel3.Location = new System.Drawing.Point(2, -7);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(2187, 107);
+            this.panel3.Size = new System.Drawing.Size(2142, 110);
             this.panel3.TabIndex = 7;
             // 
             // button9
@@ -185,52 +138,62 @@
             this.LogoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.LogoBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.LogoBtn.Location = new System.Drawing.Point(63, 12);
+            this.LogoBtn.Location = new System.Drawing.Point(39, 20);
             this.LogoBtn.Name = "LogoBtn";
             this.LogoBtn.Size = new System.Drawing.Size(217, 74);
             this.LogoBtn.TabIndex = 6;
             this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
             this.LogoBtn.UseVisualStyleBackColor = false;
             // 
-            // label1
+            // dataGridView1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Cursor = System.Windows.Forms.Cursors.SizeAll;
-            this.label1.Font = new System.Drawing.Font("Cambria", 15F);
-            this.label1.Location = new System.Drawing.Point(90, 172);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 49);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "inventory";
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(52, 348);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 82;
+            this.dataGridView1.RowTemplate.Height = 33;
+            this.dataGridView1.Size = new System.Drawing.Size(1253, 611);
+            this.dataGridView1.TabIndex = 8;
             // 
-            // InventoryForm
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.textBox1.Location = new System.Drawing.Point(52, 286);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(585, 32);
+            this.textBox1.TabIndex = 9;
+            this.textBox1.Text = "search by customer name, order # or product";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Cambria", 7.875F);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(687, 286);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(188, 33);
+            this.comboBox1.TabIndex = 10;
+            this.comboBox1.Text = "filter by:";
+            // 
+            // ViewOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(238)))), ((int)(((byte)(232)))));
             this.ClientSize = new System.Drawing.Size(2129, 1176);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.flpProducts);
-            this.Controls.Add(this.lblCount);
-            this.Controls.Add(this.txtSearch);
-            this.Controls.Add(this.btnAddProduct);
-            this.Name = "InventoryForm";
-            this.Text = "Amane - Inventory";
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.panel3);
+            this.Name = "ViewOrderForm";
+            this.Text = "ViewOrderForm";
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button btnAddProduct;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Label lblCount;
-        private System.Windows.Forms.FlowLayoutPanel flpProducts;
-        private System.Windows.Forms.ComboBox comboBox1;
+
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
@@ -238,6 +201,8 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button LogoBtn;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

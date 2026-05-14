@@ -1,9 +1,10 @@
-﻿using System;
+﻿using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using IT_Assessment_2.CSVs;
-using IT_Assignment_2.Helpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IT_Assessment_2.Forms
 {
@@ -18,14 +19,18 @@ namespace IT_Assessment_2.Forms
 
             btnAddProduct.Click += BtnAddProduct_Click;
             txtSearch.TextChanged += TxtSearch_TextChanged;
+            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
 
             LoadData();
             PopulateGrid();
         }
 
-        // =========================
-        // LOAD DATA
-        // =========================
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        // loading data
         private void LoadData()
         {
             try
@@ -42,9 +47,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // =========================
-        // POPULATE THE GRID
-        // =========================
+        // populating data grid
         private void PopulateGrid()
         {
             PopulateGrid("");
@@ -83,9 +86,7 @@ namespace IT_Assessment_2.Forms
             PopulateGrid(txtSearch.Text);
         }
 
-        // =========================
-        // EDIT EXISTING
-        // =========================
+        // edit existing
         private void Card_EditRequested(object sender, ProductActionEventArgs e)
         {
             using (var editForm = new EditProductForm(e.Product))
@@ -99,9 +100,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // =========================
-        // DELETE
-        // =========================
+        // deleting card
         private void Card_DeleteRequested(object sender, ProductActionEventArgs e)
         {
             var result = MessageBox.Show(
@@ -130,9 +129,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // =========================
-        // ADD NEW
-        // =========================
+        // adding new product
         private void BtnAddProduct_Click(object sender, EventArgs e)
         {
             using (var editForm = new EditProductForm())   // null = new product

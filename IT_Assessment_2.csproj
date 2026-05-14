@@ -113,9 +113,16 @@
     <Compile Include="Forms\ProductEditCardControl.Designer.cs">
       <DependentUpon>ProductEditCardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ViewOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ViewOrderForm.Designer.cs">
+      <DependentUpon>ViewOrderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AmaneStyling.cs" />
     <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\SessionManager.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItems.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Staff.cs" />
@@ -151,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductEditCardControl.resx">
       <DependentUpon>ProductEditCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ViewOrderForm.resx">
+      <DependentUpon>ViewOrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

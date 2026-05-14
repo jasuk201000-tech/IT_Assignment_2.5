@@ -19,12 +19,21 @@ namespace IT_Assessment_2.Forms
             PopulateLowStockGrid();
             ApplyRoleBasedAccess();
 
-            // wire up "new order" quick action
+            // quick actions wire up
             button1.Click += (s, e) => new BuildOrderForm().Show();
             button2.Click += (s, e) => new EditProductForm().Show();
+            button3.Click += (s, e) => new InventoryForm().Show();
 
             // to implement: inventory button and reports button
+
+            // wire up navigation button actions
+            button5.Click += (s, e) => new DashboardForm1().Show();
+            button6.Click += (s, e) => new InventoryForm().Show();
+            button7.Click += (s, e) => new BuildOrderForm().Show();
+            button8.Click += (s, e) => new ViewOrderForm().Show();
         }
+
+       
 
 
         // welcome
@@ -169,6 +178,34 @@ namespace IT_Assessment_2.Forms
             
             var editproductForm= new EditProductForm();
             editproductForm.Show();
+            this.Hide();
+        }
+
+        private void ViewStockButton_Click(Object sender, EventArgs e)
+        { 
+            var inventoryForm = new InventoryForm();
+            inventoryForm.Show();
+            this.Hide();
+        }
+
+        private void ViewOrderForm_Click(Object sender, EventArgs e)
+        { 
+            var vieworderForm = new ViewOrderForm();
+            vieworderForm.Show();
+            this.Hide();
+        }
+
+        private void ViewInventoryForm_Click(Object sender, EventArgs e)
+        {
+            var viewinventoryForm = new InventoryForm();
+            viewinventoryForm.Show();
+            this.Hide();
+        }
+
+        private void ViewDashboardForm_Click(Object sender, EventArgs e)
+        {
+            var viewdashboardForm = new DashboardForm1();
+            viewdashboardForm.Show();
             this.Hide();
         }
     }
