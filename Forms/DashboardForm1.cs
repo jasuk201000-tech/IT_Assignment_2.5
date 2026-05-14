@@ -21,6 +21,9 @@ namespace IT_Assessment_2.Forms
 
             // wire up "new order" quick action
             button1.Click += (s, e) => new BuildOrderForm().Show();
+            button2.Click += (s, e) => new EditProductForm().Show();
+
+            // to implement: inventory button and reports button
         }
 
 
@@ -155,8 +158,18 @@ namespace IT_Assessment_2.Forms
 
         private void NewOrderButton_Click(object sender, EventArgs e)
         {
+            
             var orderForm = new BuildOrderForm();
             orderForm.Show();
+            this.Hide();
+        }
+
+        private void AddProductButton_Click(Object sender, EventArgs e)
+        {
+            
+            var editproductForm= new EditProductForm();
+            editproductForm.Show();
+            this.Hide();
         }
     }
 }

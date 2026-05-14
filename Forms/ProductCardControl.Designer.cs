@@ -37,7 +37,7 @@ namespace IT_Assessment_2.Forms
             // 
             // lblName
             // 
-            this.lblName.Font = new System.Drawing.Font("Cambria", 11F);
+            this.lblName.Font = new System.Drawing.Font("Cambria", 9F);
             this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.lblName.Location = new System.Drawing.Point(20, 180);
             this.lblName.Name = "lblName";
@@ -50,7 +50,7 @@ namespace IT_Assessment_2.Forms
             // 
             this.lblPrice.Font = new System.Drawing.Font("Cambria", 10F);
             this.lblPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.lblPrice.Location = new System.Drawing.Point(14, 221);
+            this.lblPrice.Location = new System.Drawing.Point(20, 235);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(180, 40);
             this.lblPrice.TabIndex = 2;

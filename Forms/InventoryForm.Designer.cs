@@ -1,18 +1,9 @@
-﻿using System;
-
-namespace IT_Assessment_2.Forms
+﻿namespace IT_Assessment_2.Forms
 {
     partial class InventoryForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -24,161 +15,126 @@ namespace IT_Assessment_2.Forms
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.pnlNav = new System.Windows.Forms.Panel();
             this.LogoBtn = new System.Windows.Forms.Button();
-            this.pnlLoadingContainer = new System.Windows.Forms.Panel();
-            this.panel3.SuspendLayout();
+            this.lblPageTitle = new System.Windows.Forms.Label();
+            this.btnAddProduct = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblCount = new System.Windows.Forms.Label();
+            this.flpProducts = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlNav.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.panel3.Controls.Add(this.button9);
-            this.panel3.Controls.Add(this.button8);
-            this.panel3.Controls.Add(this.button7);
-            this.panel3.Controls.Add(this.button6);
-            this.panel3.Controls.Add(this.button5);
-            this.panel3.Controls.Add(this.LogoBtn);
-            this.panel3.Location = new System.Drawing.Point(1, -10);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(2142, 119);
-            this.panel3.TabIndex = 6;
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Cambria", 10F);
-            this.button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.button9.Location = new System.Drawing.Point(1749, 45);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(185, 41);
-            this.button9.TabIndex = 11;
-            this.button9.Text = "reports";
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Cambria", 10F);
-            this.button8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.button8.Location = new System.Drawing.Point(1547, 45);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(185, 41);
-            this.button8.TabIndex = 10;
-            this.button8.Text = "transactions";
-            this.button8.UseVisualStyleBackColor = false;
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Cambria", 10F);
-            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.button7.Location = new System.Drawing.Point(1345, 45);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(185, 41);
-            this.button7.TabIndex = 9;
-            this.button7.Text = "orders";
-            this.button7.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Cambria", 10F);
-            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.button6.Location = new System.Drawing.Point(1142, 45);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(185, 41);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "inventory";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Cambria", 10F);
-            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.button5.Location = new System.Drawing.Point(937, 45);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(185, 41);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "dashboard";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
+            //
+            // pnlNav
+            //
+            this.pnlNav.BackColor = AmanePOSHelpers.AmaneStyling.NavBar;
+            this.pnlNav.Controls.Add(this.LogoBtn);
+            this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlNav.Location = new System.Drawing.Point(0, 0);
+            this.pnlNav.Name = "pnlNav";
+            this.pnlNav.Size = new System.Drawing.Size(1400, 80);
+            this.pnlNav.TabIndex = 0;
+            //
             // LogoBtn
-            // 
-            this.LogoBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            //
+            this.LogoBtn.BackColor = AmanePOSHelpers.AmaneStyling.NavBar;
             this.LogoBtn.FlatAppearance.BorderSize = 0;
             this.LogoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.LogoBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.LogoBtn.Location = new System.Drawing.Point(39, 20);
+            this.LogoBtn.Font = new System.Drawing.Font("Cambria", 16F, System.Drawing.FontStyle.Italic);
+            this.LogoBtn.ForeColor = AmanePOSHelpers.AmaneStyling.TextOnNav;
+            this.LogoBtn.Location = new System.Drawing.Point(30, 18);
             this.LogoBtn.Name = "LogoBtn";
-            this.LogoBtn.Size = new System.Drawing.Size(217, 74);
-            this.LogoBtn.TabIndex = 6;
-            this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
+            this.LogoBtn.Size = new System.Drawing.Size(160, 50);
+            this.LogoBtn.TabIndex = 0;
+            this.LogoBtn.Text = "amane";
             this.LogoBtn.UseVisualStyleBackColor = false;
-            // 
-            // pnlLoadingContainer
-            // 
-            this.pnlLoadingContainer.Location = new System.Drawing.Point(1, 90);
-            this.pnlLoadingContainer.Name = "pnlLoadingContainer";
-            this.pnlLoadingContainer.Size = new System.Drawing.Size(2125, 1086);
-            this.pnlLoadingContainer.TabIndex = 7;
-            // 
+            //
+            // lblPageTitle
+            //
+            this.lblPageTitle.AutoSize = true;
+            this.lblPageTitle.Font = new System.Drawing.Font("Cambria", 16F, System.Drawing.FontStyle.Italic);
+            this.lblPageTitle.ForeColor = AmanePOSHelpers.AmaneStyling.TextDark;
+            this.lblPageTitle.Location = new System.Drawing.Point(40, 95);
+            this.lblPageTitle.Name = "lblPageTitle";
+            this.lblPageTitle.Size = new System.Drawing.Size(300, 40);
+            this.lblPageTitle.TabIndex = 1;
+            this.lblPageTitle.Text = "inventory";
+            //
+            // btnAddProduct
+            //
+            this.btnAddProduct.BackColor = AmanePOSHelpers.AmaneStyling.Accent;
+            this.btnAddProduct.FlatAppearance.BorderSize = 0;
+            this.btnAddProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddProduct.Font = new System.Drawing.Font("Cambria", 11F);
+            this.btnAddProduct.ForeColor = AmanePOSHelpers.AmaneStyling.ButtonText;
+            this.btnAddProduct.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAddProduct.Location = new System.Drawing.Point(1200, 95);
+            this.btnAddProduct.Name = "btnAddProduct";
+            this.btnAddProduct.Size = new System.Drawing.Size(180, 45);
+            this.btnAddProduct.TabIndex = 2;
+            this.btnAddProduct.Text = "+ add new product";
+            this.btnAddProduct.UseVisualStyleBackColor = false;
+            //
+            // txtSearch
+            //
+            this.txtSearch.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.Font = new System.Drawing.Font("Cambria", 10F);
+            this.txtSearch.ForeColor = AmanePOSHelpers.AmaneStyling.TextMuted;
+            this.txtSearch.Location = new System.Drawing.Point(40, 160);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(600, 34);
+            this.txtSearch.TabIndex = 3;
+            //
+            // lblCount
+            //
+            this.lblCount.AutoSize = true;
+            this.lblCount.Font = new System.Drawing.Font("Cambria", 9F, System.Drawing.FontStyle.Italic);
+            this.lblCount.ForeColor = AmanePOSHelpers.AmaneStyling.TextMuted;
+            this.lblCount.Location = new System.Drawing.Point(665, 165);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(140, 28);
+            this.lblCount.TabIndex = 4;
+            this.lblCount.Text = "0 product(s)";
+            //
+            // flpProducts
+            //
+            this.flpProducts.AutoScroll = true;
+            this.flpProducts.BackColor = System.Drawing.Color.White;
+            this.flpProducts.Location = new System.Drawing.Point(40, 210);
+            this.flpProducts.Name = "flpProducts";
+            this.flpProducts.Size = new System.Drawing.Size(1340, 680);
+            this.flpProducts.TabIndex = 5;
+            //
             // InventoryForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2129, 1176);
-            this.Controls.Add(this.pnlLoadingContainer);
-            this.Controls.Add(this.panel3);
+            this.BackColor = AmanePOSHelpers.AmaneStyling.PageBg;
+            this.ClientSize = new System.Drawing.Size(1400, 920);
+            this.Controls.Add(this.flpProducts);
+            this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.txtSearch);
+            this.Controls.Add(this.btnAddProduct);
+            this.Controls.Add(this.lblPageTitle);
+            this.Controls.Add(this.pnlNav);
             this.Name = "InventoryForm";
-            this.Text = "InventoryForm";
-            this.Load += new System.EventHandler(this.InventoryForm_Load);
-            this.panel3.ResumeLayout(false);
+            this.Text = "Amane - Inventory";
+            this.pnlNav.ResumeLayout(false);
             this.ResumeLayout(false);
-
-        }
-
-        private void InventoryForm_Load(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            this.PerformLayout();
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+
+        private System.Windows.Forms.Panel pnlNav;
         private System.Windows.Forms.Button LogoBtn;
-        private System.Windows.Forms.Panel pnlLoadingContainer;
+        private System.Windows.Forms.Label lblPageTitle;
+        private System.Windows.Forms.Button btnAddProduct;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.FlowLayoutPanel flpProducts;
     }
 }

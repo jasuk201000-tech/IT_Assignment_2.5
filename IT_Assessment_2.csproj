@@ -53,12 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSVs\CSVhelper.cs" />
-    <Compile Include="Forms\AddProductControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\AddProductControl.Designer.cs">
-      <DependentUpon>AddProductControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\BuildOrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +64,12 @@
     </Compile>
     <Compile Include="Forms\DashboardForm1.Designer.cs">
       <DependentUpon>DashboardForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditProductForm.Designer.cs">
+      <DependentUpon>EditProductForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InventoryForm.cs">
       <SubType>Form</SubType>
@@ -107,6 +107,12 @@
     <Compile Include="Forms\ProductCardControl.Designer.cs">
       <DependentUpon>ProductCardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProductEditCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductEditCardControl.Designer.cs">
+      <DependentUpon>ProductEditCardControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\AmaneStyling.cs" />
     <Compile Include="Helpers\Paths.cs" />
     <Compile Include="Helpers\SessionManager.cs" />
@@ -116,14 +122,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingServices.cs" />
-    <EmbeddedResource Include="Forms\AddProductControl.resx">
-      <DependentUpon>AddProductControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BuildOrderForm.resx">
       <DependentUpon>BuildOrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DashboardForm1.resx">
       <DependentUpon>DashboardForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditProductForm.resx">
+      <DependentUpon>EditProductForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InventoryForm.resx">
       <DependentUpon>InventoryForm.cs</DependentUpon>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProductCardControl.resx">
       <DependentUpon>ProductCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProductEditCardControl.resx">
+      <DependentUpon>ProductEditCardControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
