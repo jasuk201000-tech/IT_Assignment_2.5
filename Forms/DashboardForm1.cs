@@ -14,39 +14,39 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            // winform sizing - open maximised to fit screen
+            this.WindowState = FormWindowState.Maximized;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             SetUpUserInfo();
             PopulateKPILabels();
             PopulateLowStockGrid();
             ApplyRoleBasedAccess();
 
+            // quick actions
+            button1.Click += (s, e) => OpenChild(new BuildOrderForm());     // new order
+            button2.Click += (s, e) => OpenChild(new EditProductForm());    // add product
+            button3.Click += (s, e) => OpenChild(new InventoryForm());      // view stock
+            // button4 reserved for reports (not yet implemented)
 
-            // winform sizing
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Width = (int)(screen.Width * 0.9);
-            this.Height = (int)(screen.Height * 0.9);
-            this.StartPosition = FormStartPosition.CenterScreen;
-
-
-
-
-            // quick actions wire up
-            button1.Click += (s, e) => new BuildOrderForm().Show();
-            button2.Click += (s, e) => new EditProductForm().Show();
-            button3.Click += (s, e) => new InventoryForm().Show();
-
-            // to implement: inventory button and reports button
-
-            // wire up navigation button actions
-            button5.Click += (s, e) => new DashboardForm1().Show();
-            button6.Click += (s, e) => new InventoryForm().Show();
-            button7.Click += (s, e) => new BuildOrderForm().Show();
-            button8.Click += (s, e) => new ViewOrderForm().Show();
+            // top navigation bar
+            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+            
         }
 
-       
+        // navigation helper to generalise form flow
+        private void OpenChild(Form child)
+        {
+            this.Hide();
+            child.WindowState = FormWindowState.Maximized;
+            child.StartPosition = FormStartPosition.CenterScreen;
+            child.FormClosed += (s, e) => this.Show();
+            child.Show();
+        }
 
-
-        // welcome
+        // welcome and date labels
         private void SetUpUserInfo()
         {
             if (SessionManager.CurrentUser != null)
@@ -139,6 +139,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
+        // configure the grid- hardcoded
         private void ConfigureGrid()
         {
             if (dataGridView1.Columns.Count == 0) return;
@@ -152,7 +153,7 @@ namespace IT_Assessment_2.Forms
             dataGridView1.MultiSelect = false;
         }
 
-        // role based access
+        // role based based access (as described in my design document)
         private void ApplyRoleBasedAccess()
         {
             if (SessionManager.CurrentUser == null) return;
@@ -171,52 +172,8 @@ namespace IT_Assessment_2.Forms
             {
                 button8.Visible = false;   // transactions
                 button9.Visible = false;   // reports
-                button4.Visible = false;   // Reports quick action
+                button4.Visible = false;   // reports quick action
             }
-        }
-
-        private void NewOrderButton_Click(object sender, EventArgs e)
-        {
-            
-            var orderForm = new BuildOrderForm();
-            orderForm.Show();
-            this.Hide();
-        }
-
-        private void AddProductButton_Click(Object sender, EventArgs e)
-        {
-            
-            var editproductForm= new EditProductForm();
-            editproductForm.Show();
-            this.Hide();
-        }
-
-        private void ViewStockButton_Click(Object sender, EventArgs e)
-        { 
-            var inventoryForm = new InventoryForm();
-            inventoryForm.Show();
-            this.Hide();
-        }
-
-        private void ViewOrderForm_Click(Object sender, EventArgs e)
-        { 
-            var vieworderForm = new ViewOrderForm();
-            vieworderForm.Show();
-            this.Hide();
-        }
-
-        private void ViewInventoryForm_Click(Object sender, EventArgs e)
-        {
-            var viewinventoryForm = new InventoryForm();
-            viewinventoryForm.Show();
-            this.Hide();
-        }
-
-        private void ViewDashboardForm_Click(Object sender, EventArgs e)
-        {
-            var viewdashboardForm = new DashboardForm1();
-            viewdashboardForm.Show();
-            this.Hide();
         }
     }
 }
