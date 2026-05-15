@@ -56,16 +56,20 @@ namespace IT_Assessment_2.Forms
             btnCancel.Click += BtnCancel_Click;
             btnAddVariant.Click += BtnAddVariant_Click;
             btnRemoveVariant.Click += BtnRemoveVariant_Click;
+
+            // winform sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            this.Width = (int)(screen.Width * 0.9);
+            this.Height = (int)(screen.Height * 0.9);
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        // =========================
-        // CATEGORY DROPDOWN
-        // =========================
+        // category drop down
         private void PopulateCategoryDropdown()
         {
             cboCategory.Items.Clear();
             cboCategory.DisplayMember = "Name";
-            cboCategory.ValueMember = "Id";
+            cboCategory.ValueMember = "Id"; // collecting category IDs from CSV
 
             // load from categories.csv if you'd like, but hardcoded is fine for now
             cboCategory.Items.Add(new CategoryItem(1, "Dresses"));
@@ -76,6 +80,7 @@ namespace IT_Assessment_2.Forms
             cboCategory.Items.Add(new CategoryItem(6, "Footwear"));
         }
 
+        // defining csv values 
         private class CategoryItem
         {
             public int Id { get; }
@@ -84,9 +89,7 @@ namespace IT_Assessment_2.Forms
             public override string ToString() => Name;
         }
 
-        // =========================
-        // LOAD / SAVE FIELDS
-        // =========================
+        // loading and saving fields from product to the panel
         private void LoadFieldsFromProduct()
         {
             txtName.Text = _editingProduct.ProductName;
@@ -143,9 +146,7 @@ namespace IT_Assessment_2.Forms
             return true;
         }
 
-        // =========================
-        // VARIANTS GRID
-        // =========================
+        // adding variants grid
         private void RefreshVariantsGrid()
         {
             dgvVariants.DataSource = null;
@@ -166,6 +167,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
+        // adding a variant
         private void BtnAddVariant_Click(object sender, EventArgs e)
         {
             string size = txtNewSize.Text.Trim().ToUpperInvariant();
@@ -190,6 +192,8 @@ namespace IT_Assessment_2.Forms
                 return;
             }
 
+            // saving to csv
+
             _variants.Add(new CsvHelper.Variant
             {
                 VariantID = 0,   // assigned on save
@@ -206,6 +210,7 @@ namespace IT_Assessment_2.Forms
             RefreshVariantsGrid();
         }
 
+        //removing variant
         private void BtnRemoveVariant_Click(object sender, EventArgs e)
         {
             if (dgvVariants.SelectedRows.Count == 0) return;
@@ -217,9 +222,7 @@ namespace IT_Assessment_2.Forms
             RefreshVariantsGrid();
         }
 
-        // =========================
-        // SAVE & CANCEL
-        // =========================
+        // saving and cancelling methods
         private void BtnSave_Click(object sender, EventArgs e)
         {
             if (!SaveFieldsToProduct()) return;

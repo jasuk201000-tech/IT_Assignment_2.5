@@ -17,12 +17,20 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            // wiring up additional buttons
             btnAddProduct.Click += BtnAddProduct_Click;
             txtSearch.TextChanged += TxtSearch_TextChanged;
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
 
+            // calling additional methods for product grid
             LoadData();
             PopulateGrid();
+
+            // wiring up nav bar
+            button5.Click += (s, e) => new DashboardForm1().Show();
+            button6.Click += (s, e) => new InventoryForm().Show();
+            button7.Click += (s, e) => new BuildOrderForm().Show();
+            button8.Click += (s, e) => new ViewOrderForm().Show();
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)

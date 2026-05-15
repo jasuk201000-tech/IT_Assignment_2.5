@@ -18,6 +18,8 @@ namespace IT_Assessment_2.Forms
         private decimal _discountRate = 0m;
         private string _discountCode = "";
 
+        
+
         public BuildOrderForm()
         {
             InitializeComponent();
@@ -31,12 +33,22 @@ namespace IT_Assessment_2.Forms
             btnClear.Click += BtnClear_Click;
             btnApplyDiscount.Click += BtnApplyDiscount_Click;
 
+
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            this.Width = (int)(screen.Width * 0.9);
+            this.Height = (int)(screen.Height * 0.9);
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+
             lblOrderNumber.Text = $"order #{GetNextOrderNumber()}";
+
+            button5.Click += (s, e) => new DashboardForm1().Show();
+            button6.Click += (s, e) => new InventoryForm().Show();
+            button7.Click += (s, e) => new BuildOrderForm().Show();
+            button8.Click += (s, e) => new ViewOrderForm().Show();
         }
 
-        // =========================
-        // LOAD DATA
-        // =========================
+        // loading data from the csv
         private void LoadCatalog()
         {
             try
@@ -66,9 +78,7 @@ namespace IT_Assessment_2.Forms
             }
         }
 
-        // =========================
-        // PRODUCT GRID
-        // =========================
+        // populating product grid
         private void PopulateProductGrid()
         {
             PopulateProductGrid("");
@@ -98,9 +108,7 @@ namespace IT_Assessment_2.Forms
             PopulateProductGrid(txtSearch.Text);
         }
 
-        // =========================
-        // ADDING / REMOVING ITEMS
-        // =========================
+        // adding and removing items
         private void Card_AddRequested(object sender, AddProductEventArgs e)
         {
             var line = new OrderLineItemControl();
@@ -122,9 +130,7 @@ namespace IT_Assessment_2.Forms
             RefreshTotals();
         }
 
-        // =========================
-        // TOTALS
-        // =========================
+        // calculating totals using computed values
         private void RefreshTotals()
         {
             decimal subtotal = _lineItems.Sum(li => li.LineTotal);
@@ -139,9 +145,7 @@ namespace IT_Assessment_2.Forms
             lblTotal.Text = $"${total:F2}";
         }
 
-        // =========================
-        // DISCOUNT
-        // =========================
+        // applying discount
         private void BtnApplyDiscount_Click(object sender, EventArgs e)
         {
             string code = txtDiscount.Text.Trim().ToUpperInvariant();

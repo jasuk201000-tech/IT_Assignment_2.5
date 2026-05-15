@@ -19,6 +19,16 @@ namespace IT_Assessment_2.Forms
             PopulateLowStockGrid();
             ApplyRoleBasedAccess();
 
+
+            // winform sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            this.Width = (int)(screen.Width * 0.9);
+            this.Height = (int)(screen.Height * 0.9);
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+
+
+
             // quick actions wire up
             button1.Click += (s, e) => new BuildOrderForm().Show();
             button2.Click += (s, e) => new EditProductForm().Show();

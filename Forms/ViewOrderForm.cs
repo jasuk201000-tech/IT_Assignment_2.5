@@ -1,77 +1,191 @@
-﻿using IT_Assessment_2.CSVs;
-using IT_Assessment_2.Models;
-using IT_Assignment_2.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static IT_Assessment_2.CSVs.CsvHelper;
+using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
 
 namespace IT_Assessment_2.Forms
 {
     public partial class ViewOrderForm : Form
     {
+        private List<CsvHelper.Order> _orders;
+        private List<CsvHelper.OrderItem> _orderItems;
+        private List<CsvHelper.Staff> _staff;
+
         public ViewOrderForm()
         {
             InitializeComponent();
-            PopulateOrderGrid();
+
+            LoadData();
+            PopulateOrdersGrid();
+
+            // wiring up events
+            dgvOrders.SelectionChanged += DgvOrders_SelectionChanged;
+            txtSearch.TextChanged += TxtSearch_TextChanged;
+
+            // winforms sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            this.Width = (int)(screen.Width * 0.75);
+            this.Height = (int)(screen.Height * 0.75);
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // wire up navigation button actions
+            button5.Click += (s, e) => new DashboardForm1().Show();
+            button6.Click += (s, e) => new InventoryForm().Show();
+            button7.Click += (s, e) => new BuildOrderForm().Show();
+            button8.Click += (s, e) => new ViewOrderForm().Show();
         }
 
-        private void PopulateOrderGrid()
+        // loading data to csv
+        private void LoadData()
         {
             try
             {
-                var orders = CsvHelper.LoadOrders(Paths.Orders);
-                var orderitems = CsvHelper.LoadOrderItems(Paths.OrderItems);
-
-                //OrderItemID,OrderID,VariantID,ProductName,Size,Quantity,UnitPrice,LineTotal
-                //OrderID,OrderDate,StaffID,CustomerName,Subtotal,DiscountCode,DiscountAmount,TaxAmount,Total,PaymentMethod,Status
-                var orderRows = orderitems
-                    .Join(orders,
-                          v => v.OrderID,
-                          p => p.OrderID,
-                          (v, p) => new
-                          {
-                              OrderID = p.OrderID,
-                              OrderDate = p.OrderDate,
-                              Total = p.Total,
-                              PaymentMethod = p.PaymentMethod,
-                              Status = p.Status,
-                              
-                          })
-                    .OrderBy(r => r.OrderDate)
-                    .ThenBy(r => r.Status)
-                    .ToList();
-
-                dataGridView1.DataSource = orders;
-                ConfigureGrid();
+                _orders = CsvHelper.LoadOrders(Paths.Orders);
+                _orderItems = CsvHelper.LoadOrderItems(Paths.OrderItems);
+                _staff = CsvHelper.LoadStaff(Paths.Staff);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Could not load low-stock data: " + ex.Message,
-                    "Data Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Could not load orders:\n" + ex.Message,
+                                "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _orders = new List<CsvHelper.Order>();
+                _orderItems = new List<CsvHelper.OrderItem>();
+                _staff = new List<CsvHelper.Staff>();
             }
         }
 
-        private void ConfigureGrid()
+        // ensuring that each cell value is set to string.Empty before values are added (so not null)
+        private void PopulateOrdersGrid()
         {
-            if (dataGridView1.Columns.Count == 0) return;
+            PopulateOrdersGrid("");
+        }
 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ReadOnly = true;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.MultiSelect = false;
+        // populating the orders grid
+        private void PopulateOrdersGrid(string filter)
+        {
+            var rows = _orders
+                .Select(o => new
+                {
+                    Order = o,
+                    StaffName = _staff.FirstOrDefault(s => s.StaffID == o.StaffID)?.FullName ?? "Unknown",
+                })
+                .Where(r =>
+                    string.IsNullOrWhiteSpace(filter) ||
+                    r.Order.OrderID.ToString().Contains(filter) ||
+                    r.Order.CustomerName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    r.StaffName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0)
+                .OrderByDescending(r => r.Order.OrderDate)
+                .Select(r => new
+                {
+                    OrderID = r.Order.OrderID,
+                    Date = r.Order.OrderDate.ToString("yyyy-MM-dd HH:mm"),
+                    Customer = r.Order.CustomerName,
+                    Staff = r.StaffName,
+                    Total = $"${r.Order.Total:F2}",
+                    Payment = r.Order.PaymentMethod,
+                    Status = r.Order.Status,
+                })
+                .ToList();
+
+            dgvOrders.DataSource = rows;
+
+            // adding each column for the data grid view
+            if (dgvOrders.Columns.Count > 0)
+            {
+                dgvOrders.Columns["OrderID"].HeaderText = "Order #";
+                dgvOrders.Columns["OrderID"].Width = 80;
+                dgvOrders.Columns["Date"].Width = 140;
+                dgvOrders.Columns["Customer"].Width = 180;
+                dgvOrders.Columns["Staff"].Width = 150;
+                dgvOrders.Columns["Total"].Width = 100;
+                dgvOrders.Columns["Payment"].Width = 90;
+                dgvOrders.Columns["Status"].Width = 100;
+            }
+
+            lblCount.Text = $"{rows.Count} order(s)";
+        }
+
+        // event for search bar change
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            PopulateOrdersGrid(txtSearch.Text);
+        }
+
+        // returning the selected change
+        private void DgvOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvOrders.SelectedRows.Count == 0)
+            {
+                ClearLineItems();
+                return;
+            }
+
+            var row = dgvOrders.SelectedRows[0];
+            if (row.Cells["OrderID"].Value == null) return;
+
+            int orderId = (int)row.Cells["OrderID"].Value;
+            PopulateLineItems(orderId);
+        }
+
+        // populating the line items for the panel
+        private void PopulateLineItems(int orderId)
+        {
+            var order = _orders.FirstOrDefault(o => o.OrderID == orderId);
+            if (order == null)
+            {
+                ClearLineItems();
+                return;
+            }
+
+            var items = _orderItems
+                .Where(i => i.OrderID == orderId)
+                .Select(i => new
+                {
+                    Product = i.ProductName,
+                    Size = i.Size,
+                    Qty = i.Quantity,
+                    UnitPrice = $"${i.UnitPrice:F2}",
+                    LineTotal = $"${i.LineTotal:F2}",
+                })
+                .ToList();
+
+            dgvLineItems.DataSource = items;
+
+            if (dgvLineItems.Columns.Count > 0)
+            {
+                dgvLineItems.Columns["Product"].Width = 180;
+                dgvLineItems.Columns["Size"].Width = 60;
+                dgvLineItems.Columns["Qty"].Width = 50;
+                dgvLineItems.Columns["UnitPrice"].HeaderText = "Unit Price";
+                dgvLineItems.Columns["UnitPrice"].Width = 90;
+                dgvLineItems.Columns["LineTotal"].HeaderText = "Line Total";
+                dgvLineItems.Columns["LineTotal"].Width = 90;
+            }
+
+            lblOrderHeader.Text = $"order #{order.OrderID}";
+            lblOrderMeta.Text =
+                $"{order.OrderDate:yyyy-MM-dd HH:mm}   {order.CustomerName}   {order.PaymentMethod}";
+
+            lblSubtotal.Text = $"Subtotal: ${order.Subtotal:F2}";
+            lblDiscount.Text = order.DiscountAmount > 0
+                ? $"Discount ({order.DiscountCode}): -${order.DiscountAmount:F2}"
+                : "Discount: -";
+            lblTax.Text = $"Tax: ${order.TaxAmount:F2}";
+            lblTotal.Text = $"TOTAL: ${order.Total:F2}";
+        }
+
+        // clearing line items
+        private void ClearLineItems()
+        {
+            dgvLineItems.DataSource = null;
+            lblOrderHeader.Text = "select an order";
+            lblOrderMeta.Text = "";
+            lblSubtotal.Text = "";
+            lblDiscount.Text = "";
+            lblTax.Text = "";
+            lblTotal.Text = "";
         }
     }
 }
