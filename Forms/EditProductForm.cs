@@ -19,6 +19,8 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            this.WindowState = FormWindowState.Maximized; // sizing winform 
+
             _isNewProduct = (productToEdit == null);
 
             if (_isNewProduct)
@@ -59,10 +61,12 @@ namespace IT_Assessment_2.Forms
 
             // winform sizing
             var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Width = (int)(screen.Width * 0.9);
-            this.Height = (int)(screen.Height * 0.9);
-            this.StartPosition = FormStartPosition.CenterScreen;
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+
         }
+
+        
 
         // category drop down
         private void PopulateCategoryDropdown()
@@ -79,6 +83,7 @@ namespace IT_Assessment_2.Forms
             cboCategory.Items.Add(new CategoryItem(5, "Accessories"));
             cboCategory.Items.Add(new CategoryItem(6, "Footwear"));
         }
+
 
         // defining csv values 
         private class CategoryItem

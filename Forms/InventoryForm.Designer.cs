@@ -28,7 +28,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.LogoBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -97,7 +97,7 @@
             this.panel3.Controls.Add(this.button7);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button5);
-            this.panel3.Controls.Add(this.LogoBtn);
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Location = new System.Drawing.Point(-42, -3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(2187, 107);
@@ -178,19 +178,19 @@
             this.button5.Text = "dashboard";
             this.button5.UseVisualStyleBackColor = false;
             // 
-            // LogoBtn
+            // button1
             // 
-            this.LogoBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.LogoBtn.FlatAppearance.BorderSize = 0;
-            this.LogoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.LogoBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.LogoBtn.Location = new System.Drawing.Point(63, 12);
-            this.LogoBtn.Name = "LogoBtn";
-            this.LogoBtn.Size = new System.Drawing.Size(217, 74);
-            this.LogoBtn.TabIndex = 6;
-            this.LogoBtn.Text = "𝖆𝖒𝖆𝖓𝖊";
-            this.LogoBtn.UseVisualStyleBackColor = false;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button1.Location = new System.Drawing.Point(63, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(217, 74);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "𝖆𝖒𝖆𝖓𝖊";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -237,7 +237,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button LogoBtn;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
     }
 }

@@ -12,6 +12,8 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            
+
             passwordScreen = new PasswordControl1();
             pinScreen = new PINControl1();
 
@@ -24,6 +26,11 @@ namespace IT_Assessment_2.Forms
             pinScreen.SwitchToPassword += PinScreen_SwitchToPassword;
 
             ShowScreen(passwordScreen);
+
+            // winform sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
         }
 
         private void LoginScreen_LoginSuccess(object sender, EventArgs e)

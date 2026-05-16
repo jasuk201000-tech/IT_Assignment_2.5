@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace IT_Assessment_2.Forms
 {
@@ -17,6 +18,8 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            this.WindowState = FormWindowState.Maximized; // sizing winform
+
             // wiring up additional buttons
             btnAddProduct.Click += BtnAddProduct_Click;
             txtSearch.TextChanged += TxtSearch_TextChanged;
@@ -26,11 +29,21 @@ namespace IT_Assessment_2.Forms
             LoadData();
             PopulateGrid();
 
+            //
+            button1.Click += (s, e) => OpenChild(new DashboardForm1()); // logo nav to dashboard
+
+            // winform sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             // wiring up nav bar
-            button5.Click += (s, e) => new DashboardForm1().Show();
-            button6.Click += (s, e) => new InventoryForm().Show();
-            button7.Click += (s, e) => new BuildOrderForm().Show();
-            button8.Click += (s, e) => new ViewOrderForm().Show();
+            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -53,6 +66,14 @@ namespace IT_Assessment_2.Forms
                 _products = new List<CsvHelper.Product>();
                 _variants = new List<CsvHelper.Variant>();
             }
+        }
+
+        private void OpenChild(Form child)
+        {
+            this.Hide();
+            child.StartPosition = FormStartPosition.CenterScreen;
+            child.FormClosed += (s, e) => this.Show();
+            child.Show();
         }
 
         // populating data grid

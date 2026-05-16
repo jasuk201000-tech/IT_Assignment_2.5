@@ -14,8 +14,11 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
-            // winform sizing - open maximised to fit screen
-            this.WindowState = FormWindowState.Maximized;
+            // winform sizing
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+
             this.StartPosition = FormStartPosition.CenterScreen;
 
             SetUpUserInfo();
@@ -40,7 +43,6 @@ namespace IT_Assessment_2.Forms
         private void OpenChild(Form child)
         {
             this.Hide();
-            child.WindowState = FormWindowState.Maximized;
             child.StartPosition = FormStartPosition.CenterScreen;
             child.FormClosed += (s, e) => this.Show();
             child.Show();

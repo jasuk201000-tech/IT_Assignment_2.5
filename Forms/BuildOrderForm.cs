@@ -23,6 +23,7 @@ namespace IT_Assessment_2.Forms
         public BuildOrderForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized; // sizing the winform screen
 
             LoadCatalog();
             PopulateProductGrid();
@@ -33,19 +34,31 @@ namespace IT_Assessment_2.Forms
             btnClear.Click += BtnClear_Click;
             btnApplyDiscount.Click += BtnApplyDiscount_Click;
 
-
+            // winform sizing
             var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Width = (int)(screen.Width * 0.9);
-            this.Height = (int)(screen.Height * 0.9);
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+
             this.StartPosition = FormStartPosition.CenterScreen;
 
 
             lblOrderNumber.Text = $"order #{GetNextOrderNumber()}";
+            // logo btn
+            button1.Click += (s, e) => OpenChild(new DashboardForm1()); // logo nav to dashboard
 
-            button5.Click += (s, e) => new DashboardForm1().Show();
-            button6.Click += (s, e) => new InventoryForm().Show();
-            button7.Click += (s, e) => new BuildOrderForm().Show();
-            button8.Click += (s, e) => new ViewOrderForm().Show();
+            // wiring up nav bar
+            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+        }
+
+        private void OpenChild(Form child)
+        {
+            this.Hide();
+            child.StartPosition = FormStartPosition.CenterScreen;
+            child.FormClosed += (s, e) => this.Show();
+            child.Show();
         }
 
         // loading data from the csv

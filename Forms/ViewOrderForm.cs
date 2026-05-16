@@ -17,6 +17,8 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            
+
             LoadData();
             PopulateOrdersGrid();
 
@@ -24,17 +26,31 @@ namespace IT_Assessment_2.Forms
             dgvOrders.SelectionChanged += DgvOrders_SelectionChanged;
             txtSearch.TextChanged += TxtSearch_TextChanged;
 
-            // winforms sizing
+            // winform sizing
             var screen = Screen.PrimaryScreen.WorkingArea;
-            this.Width = (int)(screen.Width * 0.75);
-            this.Height = (int)(screen.Height * 0.75);
+            if (this.Width > screen.Width) this.Width = screen.Width;
+            if (this.Height > screen.Height) this.Height = screen.Height;
+
             this.StartPosition = FormStartPosition.CenterScreen;
 
+
+
+            // logo btn nav
+            button1.Click += (s, e) => OpenChild(new DashboardForm1()); // logobtn nav to dashboard
+
             // wire up navigation button actions
-            button5.Click += (s, e) => new DashboardForm1().Show();
-            button6.Click += (s, e) => new InventoryForm().Show();
-            button7.Click += (s, e) => new BuildOrderForm().Show();
-            button8.Click += (s, e) => new ViewOrderForm().Show();
+            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+        }
+
+        private void OpenChild(Form child)
+        {
+            this.Hide();
+            child.StartPosition = FormStartPosition.CenterScreen;
+            child.FormClosed += (s, e) => this.Show();
+            child.Show();
         }
 
         // loading data to csv
