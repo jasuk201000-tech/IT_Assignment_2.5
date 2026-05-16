@@ -14,6 +14,17 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
 
+            this.Shown += (s, e) =>
+            {
+                MessageBox.Show(
+                    $"ClientSize: {this.ClientSize}\n" +
+                    $"Size: {this.Size}\n" +
+                    $"WindowState: {this.WindowState}\n" +
+                    $"MaximumSize: {this.MaximumSize}\n" +
+                    $"Screen: {Screen.PrimaryScreen.WorkingArea}",
+                    "Form Size Diagnostic");
+            };
+
             // winform sizing
             var screen = Screen.PrimaryScreen.WorkingArea;
             if (this.Width > screen.Width) this.Width = screen.Width;
@@ -30,14 +41,17 @@ namespace IT_Assessment_2.Forms
             button1.Click += (s, e) => OpenChild(new BuildOrderForm());     // new order
             button2.Click += (s, e) => OpenChild(new EditProductForm());    // add product
             button3.Click += (s, e) => OpenChild(new InventoryForm());      // view stock
+            button4.Click += (s, e) => OpenChild(new ReportsForm()); // reports form
             // button4 reserved for reports (not yet implemented)
 
             // top navigation bar
             button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
             button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
             button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+            button9.Click += (s, e) => OpenChild(new ReportsForm()); // reports form
             
         }
+
 
         // navigation helper to generalise form flow
         private void OpenChild(Form child)
