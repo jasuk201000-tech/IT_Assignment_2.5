@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using IT_Assessment_2.CSVs;
 using IT_Assignment_2.Helpers;
 
@@ -112,17 +113,16 @@ namespace IT_Assessment_2.Forms
                 .ToList();
 
             PopulateSalesSummary(ordersInRange, itemsInRange);
-            PopulateTopProducts(itemsInRange);
+            PopulateTopProductsChart(itemsInRange);
             PopulateStaffPerformance(ordersInRange);
+            PopulateSalesOverTimeChart(ordersInRange, from.Date, dtpTo.Value.Date);
 
             lblRangeInfo.Text =
                 $"showing {ordersInRange.Count} orders from " +
                 $"{dtpFrom.Value:dd MMM yyyy} to {dtpTo.Value:dd MMM yyyy}";
         }
 
-        // =========================
-        // SECTION 1: SALES SUMMARY
-        // =========================
+        // sales summary section
         private void PopulateSalesSummary(List<CsvHelper.Order> orders, List<CsvHelper.OrderItem> items)
         {
             decimal totalRevenue = orders.Sum(o => o.Total);
@@ -136,38 +136,60 @@ namespace IT_Assessment_2.Forms
             lblUnitsValue.Text = unitsSold.ToString();
         }
 
-        // =========================
-        // SECTION 2: TOP PRODUCTS
-        // =========================
-        private void PopulateTopProducts(List<CsvHelper.OrderItem> items)
+       // top products chart
+        private void PopulateTopProductsChart(List<CsvHelper.OrderItem> items)
         {
+            // top 10 products by units sold
             var topProducts = items
                 .GroupBy(i => i.ProductName)
                 .Select(g => new
                 {
                     Product = g.Key,
                     UnitsSold = g.Sum(x => x.Quantity),
-                    Revenue = $"${g.Sum(x => x.LineTotal):F2}",
-                    AvgPrice = $"${(g.Sum(x => x.Quantity) > 0 ? g.Sum(x => x.LineTotal) / g.Sum(x => x.Quantity) : 0m):F2}",
                 })
                 .OrderByDescending(r => r.UnitsSold)
-                .Take(15)
+                .Take(10)
                 .ToList();
 
-            dgvTopProducts.DataSource = topProducts;
+            chartTopProducts.Series.Clear();
+            chartTopProducts.ChartAreas.Clear();
+            chartTopProducts.Titles.Clear();
 
-            if (dgvTopProducts.Columns.Count > 0)
+            // chart area styling
+            var area = new ChartArea("MainArea");
+            area.BackColor = System.Drawing.Color.FromArgb(250, 243, 240);
+            area.AxisX.MajorGrid.Enabled = false;
+            area.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(220, 200, 200);
+            area.AxisX.LabelStyle.Font = new System.Drawing.Font("Cambria", 8F);
+            area.AxisY.LabelStyle.Font = new System.Drawing.Font("Cambria", 9F);
+            area.AxisX.LabelStyle.Angle = -30;   // angle labels for long names
+            area.AxisX.Interval = 1;             // show every label
+            area.AxisX.LineColor = System.Drawing.Color.FromArgb(180, 150, 150);
+            area.AxisY.LineColor = System.Drawing.Color.FromArgb(180, 150, 150);
+            chartTopProducts.ChartAreas.Add(area);
+
+            // series
+            var series = new Series("UnitsSold")
             {
-                dgvTopProducts.Columns["Product"].Width = 260;
-                dgvTopProducts.Columns["UnitsSold"].HeaderText = "Units Sold";
-                dgvTopProducts.Columns["UnitsSold"].Width = 100;
-                dgvTopProducts.Columns["Revenue"].Width = 110;
-                dgvTopProducts.Columns["AvgPrice"].HeaderText = "Avg Price";
-                dgvTopProducts.Columns["AvgPrice"].Width = 100;
+                ChartType = SeriesChartType.Column,
+                Color = System.Drawing.Color.FromArgb(198, 152, 152),   // amane accent
+                BorderColor = System.Drawing.Color.FromArgb(158, 133, 133),
+                BorderWidth = 1,
+                IsValueShownAsLabel = true,
+                LabelForeColor = System.Drawing.Color.FromArgb(70, 50, 50),
+                Font = new System.Drawing.Font("Cambria", 8F),
+            };
+
+            foreach (var p in topProducts)
+            {
+                series.Points.AddXY(p.Product, p.UnitsSold);
             }
+
+            chartTopProducts.Series.Add(series);
+            chartTopProducts.BackColor = System.Drawing.Color.White;
         }
 
-        // staf performance section
+        // staff performance section
         private void PopulateStaffPerformance(List<CsvHelper.Order> orders)
         {
             var staffPerf = orders
@@ -194,6 +216,64 @@ namespace IT_Assessment_2.Forms
                 dgvStaffPerformance.Columns["AvgOrder"].HeaderText = "Avg Order";
                 dgvStaffPerformance.Columns["AvgOrder"].Width = 100;
             }
+        }
+
+        // sales over time section
+        private void PopulateSalesOverTimeChart(List<CsvHelper.Order> orders, DateTime from, DateTime to)
+        {
+            // build a daily revenue series across the range (zero-fill days with no sales)
+            var dailySales = new List<(DateTime Date, decimal Revenue)>();
+
+            for (DateTime d = from; d <= to; d = d.AddDays(1))
+            {
+                decimal dayRevenue = orders
+                    .Where(o => o.OrderDate.Date == d.Date)
+                    .Sum(o => o.Total);
+                dailySales.Add((d, dayRevenue));
+            }
+
+            chartSalesOverTime.Series.Clear();
+            chartSalesOverTime.ChartAreas.Clear();
+            chartSalesOverTime.Titles.Clear();
+
+            var area = new ChartArea("SalesArea");
+            area.BackColor = System.Drawing.Color.FromArgb(250, 243, 240);
+            area.AxisX.MajorGrid.Enabled = false;
+            area.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(220, 200, 200);
+            area.AxisX.LabelStyle.Font = new System.Drawing.Font("Cambria", 8F);
+            area.AxisY.LabelStyle.Font = new System.Drawing.Font("Cambria", 9F);
+            area.AxisX.LabelStyle.Angle = -30;
+            area.AxisX.LineColor = System.Drawing.Color.FromArgb(180, 150, 150);
+            area.AxisY.LineColor = System.Drawing.Color.FromArgb(180, 150, 150);
+            area.AxisY.LabelStyle.Format = "${0:N0}";
+
+            // choose interval based on range length so labels don't overlap
+            int totalDays = (int)(to - from).TotalDays + 1;
+            if (totalDays <= 14) area.AxisX.Interval = 1;
+            else if (totalDays <= 60) area.AxisX.Interval = 7;
+            else area.AxisX.Interval = 30;
+            area.AxisX.IntervalType = DateTimeIntervalType.Days;
+
+            chartSalesOverTime.ChartAreas.Add(area);
+
+            var series = new Series("Revenue")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = System.Drawing.Color.FromArgb(198, 152, 152),
+                BorderWidth = 3,
+                MarkerStyle = MarkerStyle.Circle,
+                MarkerSize = 6,
+                MarkerColor = System.Drawing.Color.FromArgb(158, 133, 133),
+                XValueType = ChartValueType.Date,
+            };
+
+            foreach (var d in dailySales)
+            {
+                series.Points.AddXY(d.Date, (double)d.Revenue);
+            }
+
+            chartSalesOverTime.Series.Add(series);
+            chartSalesOverTime.BackColor = System.Drawing.Color.White;
         }
     }
 }
