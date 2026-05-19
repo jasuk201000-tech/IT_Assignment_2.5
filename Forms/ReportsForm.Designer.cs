@@ -17,9 +17,6 @@
 
         private void InitializeComponent()
         {
-            this.pnlNav = new System.Windows.Forms.Panel();
-            this.LogoBtn = new System.Windows.Forms.Button();
-            this.lblPageTitle = new System.Windows.Forms.Label();
             this.lblFrom = new System.Windows.Forms.Label();
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.lblTo = new System.Windows.Forms.Label();
@@ -49,7 +46,15 @@
             this.dgvStaffPerformance = new System.Windows.Forms.DataGridView();
             this.lblSalesOverTimeSection = new System.Windows.Forms.Label();
             this.chartSalesOverTime = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.pnlNav.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlRevenue.SuspendLayout();
             this.pnlOrders.SuspendLayout();
             this.pnlAvg.SuspendLayout();
@@ -57,49 +62,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTopProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffPerformance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartSalesOverTime)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlNav
-            // 
-            this.pnlNav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.pnlNav.Controls.Add(this.LogoBtn);
-            this.pnlNav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlNav.Location = new System.Drawing.Point(0, 0);
-            this.pnlNav.Name = "pnlNav";
-            this.pnlNav.Size = new System.Drawing.Size(2108, 80);
-            this.pnlNav.TabIndex = 0;
-            // 
-            // LogoBtn
-            // 
-            this.LogoBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.LogoBtn.FlatAppearance.BorderSize = 0;
-            this.LogoBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogoBtn.Font = new System.Drawing.Font("Cambria", 16F, System.Drawing.FontStyle.Italic);
-            this.LogoBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.LogoBtn.Location = new System.Drawing.Point(30, 18);
-            this.LogoBtn.Name = "LogoBtn";
-            this.LogoBtn.Size = new System.Drawing.Size(160, 50);
-            this.LogoBtn.TabIndex = 0;
-            this.LogoBtn.Text = "amane";
-            this.LogoBtn.UseVisualStyleBackColor = false;
-            // 
-            // lblPageTitle
-            // 
-            this.lblPageTitle.AutoSize = true;
-            this.lblPageTitle.Font = new System.Drawing.Font("Cambria", 16F, System.Drawing.FontStyle.Italic);
-            this.lblPageTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lblPageTitle.Location = new System.Drawing.Point(40, 95);
-            this.lblPageTitle.Name = "lblPageTitle";
-            this.lblPageTitle.Size = new System.Drawing.Size(154, 51);
-            this.lblPageTitle.TabIndex = 1;
-            this.lblPageTitle.Text = "reports";
             // 
             // lblFrom
             // 
             this.lblFrom.AutoSize = true;
             this.lblFrom.Font = new System.Drawing.Font("Cambria", 9F);
             this.lblFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            this.lblFrom.Location = new System.Drawing.Point(40, 155);
+            this.lblFrom.Location = new System.Drawing.Point(435, 145);
             this.lblFrom.Name = "lblFrom";
             this.lblFrom.Size = new System.Drawing.Size(62, 28);
             this.lblFrom.TabIndex = 2;
@@ -111,9 +83,9 @@
             this.dtpFrom.CustomFormat = "dd MMM yyyy";
             this.dtpFrom.Font = new System.Drawing.Font("Cambria", 10F);
             this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFrom.Location = new System.Drawing.Point(40, 185);
+            this.dtpFrom.Location = new System.Drawing.Point(430, 176);
             this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(180, 39);
+            this.dtpFrom.Size = new System.Drawing.Size(226, 39);
             this.dtpFrom.TabIndex = 3;
             // 
             // lblTo
@@ -121,7 +93,7 @@
             this.lblTo.AutoSize = true;
             this.lblTo.Font = new System.Drawing.Font("Cambria", 9F);
             this.lblTo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            this.lblTo.Location = new System.Drawing.Point(240, 155);
+            this.lblTo.Location = new System.Drawing.Point(691, 144);
             this.lblTo.Name = "lblTo";
             this.lblTo.Size = new System.Drawing.Size(33, 28);
             this.lblTo.TabIndex = 4;
@@ -133,7 +105,7 @@
             this.dtpTo.CustomFormat = "dd MMM yyyy";
             this.dtpTo.Font = new System.Drawing.Font("Cambria", 10F);
             this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpTo.Location = new System.Drawing.Point(240, 185);
+            this.dtpTo.Location = new System.Drawing.Point(680, 175);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(180, 39);
             this.dtpTo.TabIndex = 5;
@@ -144,11 +116,11 @@
             this.btnApply.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnApply.FlatAppearance.BorderSize = 0;
             this.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApply.Font = new System.Drawing.Font("Cambria", 10F);
+            this.btnApply.Font = new System.Drawing.Font("Cambria", 8F);
             this.btnApply.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnApply.Location = new System.Drawing.Point(440, 184);
+            this.btnApply.Location = new System.Drawing.Point(884, 175);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(100, 35);
+            this.btnApply.Size = new System.Drawing.Size(152, 35);
             this.btnApply.TabIndex = 6;
             this.btnApply.Text = "apply";
             this.btnApply.UseVisualStyleBackColor = false;
@@ -161,9 +133,9 @@
             this.btnPresetToday.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPresetToday.Font = new System.Drawing.Font("Cambria", 9F);
             this.btnPresetToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.btnPresetToday.Location = new System.Drawing.Point(580, 184);
+            this.btnPresetToday.Location = new System.Drawing.Point(1083, 174);
             this.btnPresetToday.Name = "btnPresetToday";
-            this.btnPresetToday.Size = new System.Drawing.Size(85, 35);
+            this.btnPresetToday.Size = new System.Drawing.Size(139, 35);
             this.btnPresetToday.TabIndex = 7;
             this.btnPresetToday.Text = "today";
             this.btnPresetToday.UseVisualStyleBackColor = false;
@@ -176,9 +148,9 @@
             this.btnPresetWeek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPresetWeek.Font = new System.Drawing.Font("Cambria", 9F);
             this.btnPresetWeek.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.btnPresetWeek.Location = new System.Drawing.Point(675, 184);
+            this.btnPresetWeek.Location = new System.Drawing.Point(1242, 175);
             this.btnPresetWeek.Name = "btnPresetWeek";
-            this.btnPresetWeek.Size = new System.Drawing.Size(85, 35);
+            this.btnPresetWeek.Size = new System.Drawing.Size(143, 35);
             this.btnPresetWeek.TabIndex = 8;
             this.btnPresetWeek.Text = "7 days";
             this.btnPresetWeek.UseVisualStyleBackColor = false;
@@ -191,9 +163,9 @@
             this.btnPresetMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPresetMonth.Font = new System.Drawing.Font("Cambria", 9F);
             this.btnPresetMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.btnPresetMonth.Location = new System.Drawing.Point(770, 184);
+            this.btnPresetMonth.Location = new System.Drawing.Point(1395, 175);
             this.btnPresetMonth.Name = "btnPresetMonth";
-            this.btnPresetMonth.Size = new System.Drawing.Size(85, 35);
+            this.btnPresetMonth.Size = new System.Drawing.Size(147, 35);
             this.btnPresetMonth.TabIndex = 9;
             this.btnPresetMonth.Text = "30 days";
             this.btnPresetMonth.UseVisualStyleBackColor = false;
@@ -206,9 +178,9 @@
             this.btnPresetAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPresetAll.Font = new System.Drawing.Font("Cambria", 9F);
             this.btnPresetAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.btnPresetAll.Location = new System.Drawing.Point(865, 184);
+            this.btnPresetAll.Location = new System.Drawing.Point(1560, 174);
             this.btnPresetAll.Name = "btnPresetAll";
-            this.btnPresetAll.Size = new System.Drawing.Size(85, 35);
+            this.btnPresetAll.Size = new System.Drawing.Size(168, 35);
             this.btnPresetAll.TabIndex = 10;
             this.btnPresetAll.Text = "all time";
             this.btnPresetAll.UseVisualStyleBackColor = false;
@@ -227,7 +199,7 @@
             // 
             this.lblSalesSection.Font = new System.Drawing.Font("Cambria", 13F);
             this.lblSalesSection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lblSalesSection.Location = new System.Drawing.Point(40, 280);
+            this.lblSalesSection.Location = new System.Drawing.Point(888, 265);
             this.lblSalesSection.Name = "lblSalesSection";
             this.lblSalesSection.Size = new System.Drawing.Size(300, 35);
             this.lblSalesSection.TabIndex = 12;
@@ -238,7 +210,7 @@
             this.pnlRevenue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(240)))));
             this.pnlRevenue.Controls.Add(this.lblRevenueCaption);
             this.pnlRevenue.Controls.Add(this.lblRevenueValue);
-            this.pnlRevenue.Location = new System.Drawing.Point(40, 325);
+            this.pnlRevenue.Location = new System.Drawing.Point(199, 325);
             this.pnlRevenue.Name = "pnlRevenue";
             this.pnlRevenue.Size = new System.Drawing.Size(280, 130);
             this.pnlRevenue.TabIndex = 13;
@@ -269,7 +241,7 @@
             this.pnlOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(240)))));
             this.pnlOrders.Controls.Add(this.lblOrdersCaption);
             this.pnlOrders.Controls.Add(this.lblOrdersValue);
-            this.pnlOrders.Location = new System.Drawing.Point(340, 325);
+            this.pnlOrders.Location = new System.Drawing.Point(670, 325);
             this.pnlOrders.Name = "pnlOrders";
             this.pnlOrders.Size = new System.Drawing.Size(280, 130);
             this.pnlOrders.TabIndex = 14;
@@ -300,7 +272,7 @@
             this.pnlAvg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(240)))));
             this.pnlAvg.Controls.Add(this.lblAvgCaption);
             this.pnlAvg.Controls.Add(this.lblAvgValue);
-            this.pnlAvg.Location = new System.Drawing.Point(640, 325);
+            this.pnlAvg.Location = new System.Drawing.Point(1140, 325);
             this.pnlAvg.Name = "pnlAvg";
             this.pnlAvg.Size = new System.Drawing.Size(280, 130);
             this.pnlAvg.TabIndex = 15;
@@ -331,7 +303,7 @@
             this.pnlUnits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(240)))));
             this.pnlUnits.Controls.Add(this.lblUnitsCaption);
             this.pnlUnits.Controls.Add(this.lblUnitsValue);
-            this.pnlUnits.Location = new System.Drawing.Point(940, 325);
+            this.pnlUnits.Location = new System.Drawing.Point(1601, 325);
             this.pnlUnits.Name = "pnlUnits";
             this.pnlUnits.Size = new System.Drawing.Size(280, 130);
             this.pnlUnits.TabIndex = 16;
@@ -351,7 +323,7 @@
             // 
             this.lblUnitsValue.Font = new System.Drawing.Font("Cambria", 22F);
             this.lblUnitsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lblUnitsValue.Location = new System.Drawing.Point(20, 55);
+            this.lblUnitsValue.Location = new System.Drawing.Point(14, 54);
             this.lblUnitsValue.Name = "lblUnitsValue";
             this.lblUnitsValue.Size = new System.Drawing.Size(240, 55);
             this.lblUnitsValue.TabIndex = 1;
@@ -359,7 +331,7 @@
             // 
             // lblProductsSection
             // 
-            this.lblProductsSection.Font = new System.Drawing.Font("Cambria", 13F);
+            this.lblProductsSection.Font = new System.Drawing.Font("Cambria", 8F);
             this.lblProductsSection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.lblProductsSection.Location = new System.Drawing.Point(40, 480);
             this.lblProductsSection.Name = "lblProductsSection";
@@ -371,14 +343,15 @@
             // 
             this.chartTopProducts.Location = new System.Drawing.Point(40, 525);
             this.chartTopProducts.Name = "chartTopProducts";
-            this.chartTopProducts.Size = new System.Drawing.Size(820, 340);
+            this.chartTopProducts.Size = new System.Drawing.Size(667, 323);
             this.chartTopProducts.TabIndex = 18;
             // 
             // lblStaffSection
             // 
-            this.lblStaffSection.Font = new System.Drawing.Font("Cambria", 13F);
+            this.lblStaffSection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.lblStaffSection.Font = new System.Drawing.Font("Cambria", 8F);
             this.lblStaffSection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lblStaffSection.Location = new System.Drawing.Point(880, 480);
+            this.lblStaffSection.Location = new System.Drawing.Point(1453, 480);
             this.lblStaffSection.Name = "lblStaffSection";
             this.lblStaffSection.Size = new System.Drawing.Size(400, 35);
             this.lblStaffSection.TabIndex = 19;
@@ -389,19 +362,19 @@
             this.dgvStaffPerformance.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(240)))));
             this.dgvStaffPerformance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvStaffPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStaffPerformance.Location = new System.Drawing.Point(880, 525);
+            this.dgvStaffPerformance.Location = new System.Drawing.Point(1458, 525);
             this.dgvStaffPerformance.Name = "dgvStaffPerformance";
             this.dgvStaffPerformance.ReadOnly = true;
             this.dgvStaffPerformance.RowHeadersVisible = false;
             this.dgvStaffPerformance.RowHeadersWidth = 82;
-            this.dgvStaffPerformance.Size = new System.Drawing.Size(540, 340);
+            this.dgvStaffPerformance.Size = new System.Drawing.Size(540, 323);
             this.dgvStaffPerformance.TabIndex = 20;
             // 
             // lblSalesOverTimeSection
             // 
-            this.lblSalesOverTimeSection.Font = new System.Drawing.Font("Cambria", 13F);
+            this.lblSalesOverTimeSection.Font = new System.Drawing.Font("Cambria", 8F);
             this.lblSalesOverTimeSection.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.lblSalesOverTimeSection.Location = new System.Drawing.Point(40, 890);
+            this.lblSalesOverTimeSection.Location = new System.Drawing.Point(737, 480);
             this.lblSalesOverTimeSection.Name = "lblSalesOverTimeSection";
             this.lblSalesOverTimeSection.Size = new System.Drawing.Size(400, 35);
             this.lblSalesOverTimeSection.TabIndex = 21;
@@ -409,10 +382,128 @@
             // 
             // chartSalesOverTime
             // 
-            this.chartSalesOverTime.Location = new System.Drawing.Point(40, 935);
+            this.chartSalesOverTime.Location = new System.Drawing.Point(734, 525);
             this.chartSalesOverTime.Name = "chartSalesOverTime";
-            this.chartSalesOverTime.Size = new System.Drawing.Size(1380, 280);
+            this.chartSalesOverTime.Size = new System.Drawing.Size(677, 323);
             this.chartSalesOverTime.TabIndex = 22;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(2185, 110);
+            this.panel1.TabIndex = 23;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(-6, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(2132, 120);
+            this.panel2.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.panel3.Controls.Add(this.button9);
+            this.panel3.Controls.Add(this.button8);
+            this.panel3.Controls.Add(this.button7);
+            this.panel3.Controls.Add(this.button6);
+            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Location = new System.Drawing.Point(-28, -6);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(2220, 115);
+            this.panel3.TabIndex = 6;
+            // 
+            // button9
+            // 
+            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button9.FlatAppearance.BorderSize = 0;
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button9.Location = new System.Drawing.Point(1749, 45);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(185, 41);
+            this.button9.TabIndex = 11;
+            this.button9.Text = "reports";
+            this.button9.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button8.FlatAppearance.BorderSize = 0;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button8.Location = new System.Drawing.Point(1547, 45);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(185, 41);
+            this.button8.TabIndex = 10;
+            this.button8.Text = "transactions";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button7.FlatAppearance.BorderSize = 0;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button7.Location = new System.Drawing.Point(1345, 45);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(185, 41);
+            this.button7.TabIndex = 9;
+            this.button7.Text = "orders";
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button6.Location = new System.Drawing.Point(1142, 45);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(185, 41);
+            this.button6.TabIndex = 8;
+            this.button6.Text = "inventory";
+            this.button6.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Cambria", 10F);
+            this.button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button5.Location = new System.Drawing.Point(937, 45);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(185, 41);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "dashboard";
+            this.button5.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.button1.Location = new System.Drawing.Point(39, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(217, 74);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "𝖆𝖒𝖆𝖓𝖊";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // ReportsForm
             // 
@@ -420,6 +511,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(238)))), ((int)(((byte)(232)))));
             this.ClientSize = new System.Drawing.Size(2108, 1077);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.chartSalesOverTime);
             this.Controls.Add(this.lblSalesOverTimeSection);
             this.Controls.Add(this.dgvStaffPerformance);
@@ -441,11 +534,8 @@
             this.Controls.Add(this.lblTo);
             this.Controls.Add(this.dtpFrom);
             this.Controls.Add(this.lblFrom);
-            this.Controls.Add(this.lblPageTitle);
-            this.Controls.Add(this.pnlNav);
             this.Name = "ReportsForm";
             this.Text = "Amane - Reports";
-            this.pnlNav.ResumeLayout(false);
             this.pnlRevenue.ResumeLayout(false);
             this.pnlRevenue.PerformLayout();
             this.pnlOrders.ResumeLayout(false);
@@ -457,16 +547,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTopProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStaffPerformance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartSalesOverTime)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlNav;
-        private System.Windows.Forms.Button LogoBtn;
-        private System.Windows.Forms.Label lblPageTitle;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.DateTimePicker dtpFrom;
         private System.Windows.Forms.Label lblTo;
@@ -496,5 +584,14 @@
         private System.Windows.Forms.DataGridView dgvStaffPerformance;
         private System.Windows.Forms.Label lblSalesOverTimeSection;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartSalesOverTime;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button1;
     }
 }
