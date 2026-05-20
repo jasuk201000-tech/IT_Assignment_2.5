@@ -62,7 +62,7 @@ namespace IT_Assessment_2.Forms
         }
 
         private void DigitButton_Click(object sender, EventArgs e)
-        {
+        { 
             if (enteredPin.Length >= PIN_LENGTH) return;
 
             Button clicked = (Button)sender;

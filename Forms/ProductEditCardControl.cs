@@ -23,6 +23,7 @@ namespace IT_Assessment_2.Forms
             btnDelete.Click += BtnDelete_Click;
         }
 
+        
         public void Bind(CsvHelper.Product product, List<CsvHelper.Variant> variants)
         {
             Product = product;

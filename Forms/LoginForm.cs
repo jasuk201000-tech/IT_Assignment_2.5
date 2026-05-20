@@ -28,7 +28,6 @@ namespace IT_Assessment_2.Forms
 
             ShowScreen(passwordScreen);
 
-            // winform sizing
             
         }
 
