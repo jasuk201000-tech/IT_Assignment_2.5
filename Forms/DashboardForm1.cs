@@ -13,22 +13,12 @@ namespace IT_Assessment_2.Forms
         public DashboardForm1()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
 
-            this.Shown += (s, e) =>
-            {
-                MessageBox.Show(
-                    $"ClientSize: {this.ClientSize}\n" +
-                    $"Size: {this.Size}\n" +
-                    $"WindowState: {this.WindowState}\n" +
-                    $"MaximumSize: {this.MaximumSize}\n" +
-                    $"Screen: {Screen.PrimaryScreen.WorkingArea}",
-                    "Form Size Diagnostic");
-            };
+   
 
             // winform sizing
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            if (this.Width > screen.Width) this.Width = screen.Width;
-            if (this.Height > screen.Height) this.Height = screen.Height;
+        
 
             this.StartPosition = FormStartPosition.CenterScreen;
 

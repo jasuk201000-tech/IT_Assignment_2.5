@@ -32,11 +32,7 @@ namespace IT_Assessment_2.Forms
             //
             button1.Click += (s, e) => OpenChild(new DashboardForm1()); // logo nav to dashboard
 
-            // winform sizing
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            if (this.Width > screen.Width) this.Width = screen.Width;
-            if (this.Height > screen.Height) this.Height = screen.Height;
-
+           
             this.StartPosition = FormStartPosition.CenterScreen;
 
             // wiring up nav bar

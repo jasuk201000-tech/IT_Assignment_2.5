@@ -34,10 +34,7 @@ namespace IT_Assessment_2.Forms
             btnClear.Click += BtnClear_Click;
             btnApplyDiscount.Click += BtnApplyDiscount_Click;
 
-            // winform sizing
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            if (this.Width > screen.Width) this.Width = screen.Width;
-            if (this.Height > screen.Height) this.Height = screen.Height;
+            
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
@@ -190,9 +187,7 @@ namespace IT_Assessment_2.Forms
             RefreshTotals();
         }
 
-        // =========================
-        // COMPLETE ORDER
-        // =========================
+        // complete order
         private void BtnComplete_Click(object sender, EventArgs e)
         {
             if (_lineItems.Count == 0)
@@ -309,9 +304,7 @@ namespace IT_Assessment_2.Forms
             File.WriteAllLines(path, lines);
         }
 
-        // =========================
-        // CLEAR
-        // =========================
+        // clearing order form
         private void BtnClear_Click(object sender, EventArgs e)
         {
             if (_lineItems.Count == 0) return;

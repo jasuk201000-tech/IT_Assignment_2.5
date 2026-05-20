@@ -18,10 +18,17 @@ namespace IT_Assessment_2.Forms
         public ReportsForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
 
             // sizing
             this.WindowState = FormWindowState.Maximized;
-            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // wire up navigation button actions
+            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+
 
             LoadAllData();
             InitializeDateRange();
@@ -34,6 +41,14 @@ namespace IT_Assessment_2.Forms
             btnPresetAll.Click += (s, e) => SetPresetAllTime();
 
             RefreshAllReports();
+        }
+
+        private void OpenChild(Form child)
+        {
+            this.Hide();
+            child.StartPosition = FormStartPosition.CenterScreen;
+            child.FormClosed += (s, e) => this.Show();
+            child.Show();
         }
 
         // loading all data
