@@ -37,7 +37,7 @@ namespace IT_Assessment_2.Forms
             // 
             // lblName
             // 
-            this.lblName.Font = new System.Drawing.Font("Cambria", 9F);
+            this.lblName.Font = new System.Drawing.Font("Cambria", 8F);
             this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.lblName.Location = new System.Drawing.Point(20, 180);
             this.lblName.Name = "lblName";

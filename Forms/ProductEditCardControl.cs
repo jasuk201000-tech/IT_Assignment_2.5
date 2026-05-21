@@ -1,8 +1,10 @@
-﻿using System;
+﻿using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using IT_Assessment_2.CSVs;
+using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.Forms
 {
@@ -19,10 +21,30 @@ namespace IT_Assessment_2.Forms
         public ProductEditCardControl()
         {
             InitializeComponent();
+            ApplyRoleBasedAccess();
             btnEdit.Click += BtnEdit_Click;
             btnDelete.Click += BtnDelete_Click;
         }
 
+        public void ApplyRoleBasedAccess()
+        {
+            if (SessionManager.CurrentUser == null) return;
+
+            var role = SessionManager.CurrentUser.Role;
+            bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
+
+            if (role == UserRole.Cashier)
+            {
+                btnEdit.Visible = false;
+                btnDelete.Visible = false;
+            }
+            else
+            {
+                btnEdit.Visible = true;
+                btnDelete.Visible = false;
+            }
+
+        }
         
         public void Bind(CsvHelper.Product product, List<CsvHelper.Variant> variants)
         {
