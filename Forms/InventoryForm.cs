@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static IT_Assessment_2.Models.Staff;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
@@ -17,6 +18,7 @@ namespace IT_Assessment_2.Forms
         public InventoryForm()
         {
             InitializeComponent();
+            ApplyRoleBasedAccess();
 
             this.WindowState = FormWindowState.Maximized; // sizing winform
 
@@ -26,7 +28,7 @@ namespace IT_Assessment_2.Forms
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
 
             // calling additional methods for product grid
-            LoadData();
+            LoadCatalog();
             PopulateGrid();
 
             //
@@ -36,19 +38,36 @@ namespace IT_Assessment_2.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
 
             // wiring up nav bar
-            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
-            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
-            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
-            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+            button6.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button7.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button8.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button9.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); // didn't end up implementing
+        }
+
+        private void ApplyRoleBasedAccess()
+        {
+            if (SessionManager.CurrentUser == null) return;
+
+            var role = SessionManager.CurrentUser.Role;
+            bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
+
+            if (isPrivileged)
+            {
+                button9.Visible = true;
+            }
+            else
+            {
+                button9.Visible = false;
+            }
         }
 
         // loading data
-        private void LoadData()
+        private void LoadCatalog()
         {
             try
             {
@@ -93,6 +112,7 @@ namespace IT_Assessment_2.Forms
                     p.ProductName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     p.Brand.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
 
+            // adding filters for the inventory ordering
             foreach (var product in filtered.OrderBy(p => p.ProductName))
             {
                 var card = new ProductEditCardControl();
@@ -119,7 +139,7 @@ namespace IT_Assessment_2.Forms
                 if (editForm.ShowDialog(this) == DialogResult.OK)
                 {
                     // refresh — products and variants may have changed
-                    LoadData();
+                    LoadCatalog();
                     PopulateGrid(txtSearch.Text);
                 }
             }
@@ -144,7 +164,7 @@ namespace IT_Assessment_2.Forms
                 CsvHelper.DeleteVariantsForProduct(Paths.Variants, e.Product.ProductID);
                 CsvHelper.DeleteProduct(Paths.Products, e.Product.ProductID);
 
-                LoadData();
+                LoadCatalog();
                 PopulateGrid(txtSearch.Text);
             }
             catch (Exception ex)
@@ -161,7 +181,7 @@ namespace IT_Assessment_2.Forms
             {
                 if (editForm.ShowDialog(this) == DialogResult.OK)
                 {
-                    LoadData();
+                    LoadCatalog();
                     PopulateGrid(txtSearch.Text);
                 }
             }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using IT_Assessment_2.CSVs;
-using IT_Assignment_2.Helpers;
+using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.Forms
 {
@@ -19,6 +20,8 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+
+            ApplyRoleBasedAccess();
 
             // sizing
             this.WindowState = FormWindowState.Maximized;
@@ -49,6 +52,23 @@ namespace IT_Assessment_2.Forms
             child.StartPosition = FormStartPosition.CenterScreen;
             child.FormClosed += (s, e) => this.Show();
             child.Show();
+        }
+
+        private void ApplyRoleBasedAccess()
+        {
+            if (SessionManager.CurrentUser == null) return;
+
+            var role = SessionManager.CurrentUser.Role;
+            bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
+
+            if (isPrivileged)
+            {
+                button8.Visible = true;
+            }
+            else
+            {
+                button8.Visible = false;
+            }
         }
 
         // loading all data

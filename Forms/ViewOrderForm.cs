@@ -1,9 +1,10 @@
-﻿using System;
+﻿using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using IT_Assessment_2.CSVs;
-using IT_Assignment_2.Helpers;
+using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.Forms
 {
@@ -16,6 +17,7 @@ namespace IT_Assessment_2.Forms
         public ViewOrderForm()
         {
             InitializeComponent();
+            ApplyRoleBasedAccess();
 
             
 
@@ -27,9 +29,7 @@ namespace IT_Assessment_2.Forms
             txtSearch.TextChanged += TxtSearch_TextChanged;
 
             // winform sizing
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            if (this.Width > screen.Width) this.Width = screen.Width;
-            if (this.Height > screen.Height) this.Height = screen.Height;
+            this.WindowState = FormWindowState.Maximized;
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
@@ -51,6 +51,23 @@ namespace IT_Assessment_2.Forms
             child.StartPosition = FormStartPosition.CenterScreen;
             child.FormClosed += (s, e) => this.Show();
             child.Show();
+        }
+
+        private void ApplyRoleBasedAccess()
+        {
+            if (SessionManager.CurrentUser == null) return;
+
+            var role = SessionManager.CurrentUser.Role;
+            bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
+
+            if (isPrivileged)
+            {
+                button8.Visible = true;
+            }
+            else
+            {
+                button8.Visible = false;
+            }
         }
 
         // loading data to csv

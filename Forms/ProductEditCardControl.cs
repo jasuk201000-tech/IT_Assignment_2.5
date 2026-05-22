@@ -41,7 +41,7 @@ namespace IT_Assessment_2.Forms
             else
             {
                 btnEdit.Visible = true;
-                btnDelete.Visible = false;
+                btnDelete.Visible = true;
             }
 
         }

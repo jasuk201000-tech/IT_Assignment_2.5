@@ -1,10 +1,11 @@
-﻿using System;
+﻿using IT_Assessment_2.CSVs;
+using IT_Assignment_2.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using IT_Assessment_2.CSVs;
-using IT_Assignment_2.Helpers;
+using static IT_Assessment_2.Models.Staff;
 
 namespace IT_Assessment_2.Forms
 {
@@ -24,7 +25,7 @@ namespace IT_Assessment_2.Forms
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized; // sizing the winform screen
-
+            ApplyRoleBasedAccess();
             LoadCatalog();
             PopulateProductGrid();
             RefreshTotals();
@@ -44,10 +45,10 @@ namespace IT_Assessment_2.Forms
             button1.Click += (s, e) => OpenChild(new DashboardForm1()); // logo nav to dashboard
 
             // wiring up nav bar
-            button5.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
-            button6.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
-            button7.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
-            button8.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
+            button6.Click += (s, e) => OpenChild(new DashboardForm1()); // dashboard 
+            button7.Click += (s, e) => OpenChild(new InventoryForm());      // inventory
+            button8.Click += (s, e) => OpenChild(new BuildOrderForm());     // orders / new order
+            button9.Click += (s, e) => OpenChild(new ViewOrderForm());  // transactions / history
         }
 
         private void OpenChild(Form child)
@@ -56,6 +57,23 @@ namespace IT_Assessment_2.Forms
             child.StartPosition = FormStartPosition.CenterScreen;
             child.FormClosed += (s, e) => this.Show();
             child.Show();
+        }
+
+        private void ApplyRoleBasedAccess()
+        {
+            if (SessionManager.CurrentUser == null) return;
+
+            var role = SessionManager.CurrentUser.Role;
+            bool isPrivileged = (role == UserRole.Admin || role == UserRole.Manager);
+
+            if (isPrivileged)
+            {
+                button8.Visible = true;
+            }
+            else
+            {
+                button8.Visible = false;
+            }
         }
 
         // loading data from the csv
