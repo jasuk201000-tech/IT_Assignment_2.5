@@ -71,11 +71,13 @@ namespace IT_Assessment_2.Forms
         {
             try
             {
+                // load products and variants from CSV
                 _products = CsvHelper.LoadProducts(Paths.Products);
                 _variants = CsvHelper.LoadVariants(Paths.Variants);
             }
             catch (Exception ex)
             {
+                // if there's an error loading the data, show a message and initialize empty lists to avoid null reference issues
                 MessageBox.Show("Could not load inventory:\n" + ex.Message,
                                 "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _products = new List<CsvHelper.Product>();
@@ -91,7 +93,7 @@ namespace IT_Assessment_2.Forms
             child.Show();
         }
 
-        // populating data grid
+        // populating data grid with null 
         private void PopulateGrid()
         {
             PopulateGrid("");
@@ -105,25 +107,25 @@ namespace IT_Assessment_2.Forms
                 c.Dispose();
             }
             flpProducts.Controls.Clear();
-
+            // the filter being whether or not there is null or white space
             var filtered = string.IsNullOrWhiteSpace(filter)
                 ? _products
                 : _products.Where(p =>
-                    p.ProductName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    p.Brand.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                    p.ProductName.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 || // compares each product name string with input value
+                    p.Brand.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0).ToList(); // compares each brand name string with input value
 
             // adding filters for the inventory ordering
             foreach (var product in filtered.OrderBy(p => p.ProductName))
             {
                 var card = new ProductEditCardControl();
-                var productVariants = _variants.Where(v => v.ProductID == product.ProductID).ToList();
-                card.Bind(product, productVariants);
-                card.EditRequested += Card_EditRequested;
-                card.DeleteRequested += Card_DeleteRequested;
-                flpProducts.Controls.Add(card);
+                var productVariants = _variants.Where(v => v.ProductID == product.ProductID).ToList(); // binds the variant and product CSV to This LINQ filter selects only those variants whose ProductID matches the ProductID of the current product 
+                card.Bind(product, productVariants); // bind the product and product variants 
+                card.EditRequested += Card_EditRequested; // event handler
+                card.DeleteRequested += Card_DeleteRequested; // event handler
+                flpProducts.Controls.Add(card); // adding controls/ card panels to the catalog
             }
 
-            lblCount.Text = $"{filtered.Count} product(s)";
+            lblCount.Text = $"{filtered.Count} product(s)"; // counts the number of 
         }
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
@@ -134,7 +136,7 @@ namespace IT_Assessment_2.Forms
         // edit existing
         private void Card_EditRequested(object sender, ProductActionEventArgs e)
         {
-            using (var editForm = new EditProductForm(e.Product))
+            using (var editForm = new EditProductForm(e.Product)) // within the event it calls the form and passes the product that was clicked on to the form so it can populate the fields with the existing data
             {
                 if (editForm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -146,8 +148,9 @@ namespace IT_Assessment_2.Forms
         }
 
         // deleting card
-        private void Card_DeleteRequested(object sender, ProductActionEventArgs e)
+        private void Card_DeleteRequested(object sender, ProductActionEventArgs e) // deleting card event handler, passes the product that was attempted to be deleted so it can confirm the name in the confirmation dialog
         {
+            // confirmation dialog
             var result = MessageBox.Show(
                 $"Delete \"{e.Product.ProductName}\"?\n\n" +
                 "This will remove the product and all its sizes from inventory. " +
@@ -156,6 +159,7 @@ namespace IT_Assessment_2.Forms
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
+            // if the user clicks "No", the method returns early and no deletion occurs. If "Yes" is clicked, the code proceeds to delete the product and its variants.
             if (result != DialogResult.Yes) return;
 
             try
@@ -177,7 +181,7 @@ namespace IT_Assessment_2.Forms
         // adding new product
         private void BtnAddProduct_Click(object sender, EventArgs e)
         {
-            using (var editForm = new EditProductForm())   // null = new product
+            using (var editForm = new EditProductForm())   // it will open the edit product form but without passing a product to it, so the form will know to treat it as a new product rather than an edit of an existing product
             {
                 if (editForm.ShowDialog(this) == DialogResult.OK)
                 {

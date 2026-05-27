@@ -177,7 +177,7 @@ namespace IT_Assessment_2.Forms
             // top 10 products by units sold
             var topProducts = items
                 .GroupBy(i => i.ProductName)
-                .Select(g => new
+                .Select(g => new // anonymous type
                 {
                     Product = g.Key,
                     UnitsSold = g.Sum(x => x.Quantity),

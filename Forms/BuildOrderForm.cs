@@ -195,10 +195,12 @@ namespace IT_Assessment_2.Forms
                 case "":
                     _discountRate = 0m;
                     _discountCode = "";
+                    // discount code break
                     break;
                 default:
                     MessageBox.Show("Invalid discount code.", "Discount",
                                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // default case for invalid discount code
                     return;
             }
 
@@ -281,8 +283,7 @@ namespace IT_Assessment_2.Forms
 
         private void GenerateReceiptPdf(CsvHelper.Order order, List<CsvHelper.OrderItem> items)
         {
-            // "PDF" placeholder — saves as .txt next to the .exe in a Receipts/ folder.
-            // Swap for a real PDF library (e.g. iText, PdfSharp) when you have time.
+            // pdf placeholder, issue: interal to the file rather than a recievable reciept
             string receiptsDir = Path.Combine(Application.StartupPath, "Receipts");
             Directory.CreateDirectory(receiptsDir);
 

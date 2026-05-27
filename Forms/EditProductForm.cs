@@ -11,9 +11,9 @@ namespace IT_Assessment_2.Forms
     public partial class EditProductForm : Form
     {
         // null = adding a new product, otherwise = editing this one
-        private CsvHelper.Product _editingProduct;
-        private List<CsvHelper.Variant> _variants;
-        private bool _isNewProduct;
+        private CsvHelper.Product _editingProduct; 
+        private List<CsvHelper.Variant> _variants; // cached list of variants
+        private bool _isNewProduct; // boolean for the the form modes: editing product vs new product
 
         public EditProductForm(CsvHelper.Product productToEdit = null)
         {
@@ -23,6 +23,7 @@ namespace IT_Assessment_2.Forms
 
             _isNewProduct = (productToEdit == null);
 
+            // setting default properties for when there _isNewProduct is true
             if (_isNewProduct)
             {
                 _editingProduct = new CsvHelper.Product
@@ -40,6 +41,7 @@ namespace IT_Assessment_2.Forms
                 this.Text = "Add Product";
                 lblTitle.Text = "add new product";
             }
+            // the else statement utilises the CSV information for that specific variant from the variant CSV path
             else
             {
                 _editingProduct = productToEdit;
@@ -50,10 +52,12 @@ namespace IT_Assessment_2.Forms
                 lblTitle.Text = "edit product";
             }
 
+            // method constructors
             PopulateCategoryDropdown();
             LoadFieldsFromProduct();
             RefreshVariantsGrid();
 
+            // event handlers
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += BtnCancel_Click;
             btnAddVariant.Click += BtnAddVariant_Click;
@@ -75,7 +79,7 @@ namespace IT_Assessment_2.Forms
             cboCategory.DisplayMember = "Name";
             cboCategory.ValueMember = "Id"; // collecting category IDs from CSV
 
-            // load from categories.csv if you'd like, but hardcoded is fine for now
+            // harcoded combo box clauses, can be taken directly from the CSV but for safety I hardcoded them
             cboCategory.Items.Add(new CategoryItem(1, "Dresses"));
             cboCategory.Items.Add(new CategoryItem(2, "Tops"));
             cboCategory.Items.Add(new CategoryItem(3, "Bottoms"));
@@ -116,6 +120,7 @@ namespace IT_Assessment_2.Forms
         }
 
         
+        // input validation check, whether there is a null or below zero input (
         private bool SaveFieldsToProduct()
         {
             // validation
@@ -142,6 +147,7 @@ namespace IT_Assessment_2.Forms
                 return false;
             }
 
+            // trimming and saving to the product object
             _editingProduct.ProductName = txtName.Text.Trim();
             _editingProduct.Description = txtDescription.Text.Trim();
             _editingProduct.Brand = txtBrand.Text.Trim();
@@ -155,6 +161,7 @@ namespace IT_Assessment_2.Forms
         // adding variants grid
         private void RefreshVariantsGrid()
         {
+            // rebind the grid to show current variants list/ variant CSV information
             dgvVariants.DataSource = null;
             dgvVariants.DataSource = _variants.Select(v => new
             {
@@ -176,6 +183,7 @@ namespace IT_Assessment_2.Forms
         // adding a variant
         private void BtnAddVariant_Click(object sender, EventArgs e)
         {
+            // validation by checking for null/whitespace and negative stock levels, also checking for duplicate sizes for the same product
             string size = txtNewSize.Text.Trim().ToUpperInvariant();
             if (string.IsNullOrWhiteSpace(size))
             {
@@ -184,6 +192,7 @@ namespace IT_Assessment_2.Forms
                 return;
             }
 
+            // check for duplicate size for this product within the current list of variants (ignoring case)/ CSV
             if (_variants.Any(v => v.Size == size))
             {
                 MessageBox.Show($"Size {size} already exists for this product.",
@@ -219,12 +228,12 @@ namespace IT_Assessment_2.Forms
         //removing variant
         private void BtnRemoveVariant_Click(object sender, EventArgs e)
         {
-            if (dgvVariants.SelectedRows.Count == 0) return;
+            if (dgvVariants.SelectedRows.Count == 0) return; // returning if no selection is amde
 
-            var row = dgvVariants.SelectedRows[0];
-            int variantId = (int)row.Cells["VariantID"].Value;
+            var row = dgvVariants.SelectedRows[0]; // setting initial selected row value
+            int variantId = (int)row.Cells["VariantID"].Value; // getting the variant ID from the hidden column in the grid
 
-            _variants.RemoveAll(v => v.VariantID == variantId);
+            _variants.RemoveAll(v => v.VariantID == variantId); // removing the variant from the list based on the ID
             RefreshVariantsGrid();
         }
 
@@ -233,8 +242,9 @@ namespace IT_Assessment_2.Forms
         {
             if (!SaveFieldsToProduct()) return;
 
-            if (_variants.Count == 0)
+            if (_variants.Count == 0) // require at least one variant before saving
             {
+                // error mesage if there are no variants added to the product, as a product must have at least one variant (size)
                 MessageBox.Show("Add at least one variant (size) before saving.",
                                 "No Variants", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -270,7 +280,7 @@ namespace IT_Assessment_2.Forms
                 }
 
                 this.DialogResult = DialogResult.OK;
-                this.Close();
+                this.Close(); // closes message box if successful
             }
             catch (Exception ex)
             {
@@ -281,6 +291,7 @@ namespace IT_Assessment_2.Forms
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            // closes the form without saving changes, setting DialogResult to Cancel so the caller can know that it was cancelled
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
